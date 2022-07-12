@@ -1,16 +1,9 @@
 import FavoritePlace from '../../components/favorite-place/favorites-place';
-
-type Place = {
-  isPremium: boolean;
-  imgUrl: string;
-  name: string;
-  type: string;
-  price: number;
-};
+import type { FavoritePlaceType } from '../../types/MainCard';
 
 type FavoriteLocationProps = {
   city: string;
-  places: Place[];
+  places: FavoritePlaceType[];
 }
 
 function FavoriteLocation(props: FavoriteLocationProps) : JSX.Element {
@@ -18,7 +11,7 @@ function FavoriteLocation(props: FavoriteLocationProps) : JSX.Element {
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <a className="locations__item-link" href="#">
+          <a className="locations__item-link" href="/">
             <span>{props.city}</span>
           </a>
         </div>
@@ -26,14 +19,7 @@ function FavoriteLocation(props: FavoriteLocationProps) : JSX.Element {
       <div className="favorites__places">
         {
           props.places.map((place) => (
-            <FavoritePlace
-              key={place.name}
-              isPremium={place.isPremium}
-              imgUrl={place.imgUrl}
-              name={place.name}
-              type={place.type}
-              price={place.price}
-            />
+            <FavoritePlace key={place.name} place={place} />
           ))
         }
       </div>
