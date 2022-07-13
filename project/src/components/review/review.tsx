@@ -1,13 +1,7 @@
-type ReviewItem = {
-  name: string;
-  avatarUrl: string;
-  dateText: string;
-  dateTime: string;
-  text: string;
-};
+import { ReviewItemType } from '../../types/Property';
 
 type ReviewProps = {
-  reviews: ReviewItem[];
+  reviews: ReviewItemType[];
 };
 
 function Review({reviews}: ReviewProps) : JSX.Element {
