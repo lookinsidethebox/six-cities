@@ -1,5 +1,5 @@
-export type PropertyItemType = {
-  showReviews: boolean;
+export type PropertyType = {
+  id: number;
   isPremium: boolean;
   isInBookmarks: boolean;
   name: string;
@@ -12,12 +12,15 @@ export type PropertyItemType = {
   price: number;
   rating: number;
   imgUrls: string[];
+  mainImgUrl: string;
   propertyInside: string[];
   description: string[];
   reviews: ReviewItemType[];
+  city: string;
 };
 
 export type ReviewItemType = {
+  id: number;
   name: string;
   avatarUrl: string;
   dateText: string;

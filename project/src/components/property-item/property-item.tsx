@@ -1,17 +1,18 @@
 import Review from '../review/review';
-import { PropertyItemType } from '../../types/Property';
+import { PropertyType } from '../../types/Property';
 
 type PropertyItemProps = {
-  property: PropertyItemType;
+  property: PropertyType;
+  showReviews: boolean;
 }
 
-function PropertyItem({property}: PropertyItemProps) : JSX.Element {
-  return(
+function PropertyItem(props: PropertyItemProps) : JSX.Element {
+  return (
     <section className="property">
       <div className="property__gallery-container container">
         <div className="property__gallery">
           {
-            property.imgUrls.map((url) => (
+            props.property.imgUrls.map((url) => (
               <div className="property__image-wrapper" key={url}>
                 <img className="property__image" src={url} alt="Photo studio" />
               </div>
@@ -22,20 +23,20 @@ function PropertyItem({property}: PropertyItemProps) : JSX.Element {
       <div className="property__container container">
         <div className="property__wrapper">
           {
-            property.isPremium &&
+            props.property.isPremium &&
             <div className="property__mark">
               <span>Premium</span>
             </div>
           }
           <div className="property__name-wrapper">
             <h1 className="property__name">
-              {property.name}
+              {props.property.name}
             </h1>
             <button className="property__bookmark-button button" type="button">
               <svg className="property__bookmark-icon" width="31" height="33">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
-              <span className="visually-hidden">{property.isInBookmarks ? 'In' : 'To'} bookmarks</span>
+              <span className="visually-hidden">{props.property.isInBookmarks ? 'In' : 'To'} bookmarks</span>
             </button>
           </div>
           <div className="property__rating rating">
@@ -43,28 +44,28 @@ function PropertyItem({property}: PropertyItemProps) : JSX.Element {
               <span style={{ width: '80%' }}></span>
               <span className="visually-hidden">Rating</span>
             </div>
-            <span className="property__rating-value rating__value">{property.rating}</span>
+            <span className="property__rating-value rating__value">{props.property.rating}</span>
           </div>
           <ul className="property__features">
             <li className="property__feature property__feature--entire">
-              {property.type}
+              {props.property.type}
             </li>
             <li className="property__feature property__feature--bedrooms">
-              {property.bedrooms}
+              {props.property.bedrooms}
             </li>
             <li className="property__feature property__feature--adults">
-              {property.adults}
+              {props.property.adults}
             </li>
           </ul>
           <div className="property__price">
-            <b className="property__price-value">&euro;{property.price}</b>
+            <b className="property__price-value">&euro;{props.property.price}</b>
             <span className="property__price-text">&nbsp;night</span>
           </div>
           <div className="property__inside">
             <h2 className="property__inside-title">What&apos;s inside</h2>
             <ul className="property__inside-list">
               {
-                property.propertyInside.map((item) => (
+                props.property.propertyInside.map((item) => (
                   <li className="property__inside-item" key={item}>
                     {item}
                   </li>
@@ -76,18 +77,18 @@ function PropertyItem({property}: PropertyItemProps) : JSX.Element {
             <h2 className="property__host-title">Meet the host</h2>
             <div className="property__host-user user">
               <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                <img className="property__avatar user__avatar" src={property.hostAvatarUrl} width="74" height="74" alt="Host avatar" />
+                <img className="property__avatar user__avatar" src={props.property.hostAvatarUrl} width="74" height="74" alt="Host avatar" />
               </div>
               <span className="property__user-name">
-                {property.hostName}
+                {props.property.hostName}
               </span>
               <span className="property__user-status">
-                {property.hostStatus}
+                {props.property.hostStatus}
               </span>
             </div>
             <div className="property__description">
               {
-                property.description.map((desc) => (
+                props.property.description.map((desc) => (
                   <p className="property__text" key={desc}>
                     {desc}
                   </p>
@@ -96,7 +97,7 @@ function PropertyItem({property}: PropertyItemProps) : JSX.Element {
             </div>
           </div>
           {
-            property.showReviews ? <Review reviews={property.reviews} /> : ''
+            props.showReviews ? <Review reviews={props.property.reviews} /> : ''
           }
         </div>
       </div>

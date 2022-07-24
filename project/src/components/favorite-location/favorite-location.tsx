@@ -1,9 +1,9 @@
 import FavoritePlace from '../../components/favorite-place/favorites-place';
-import type { FavoritePlaceType } from '../../types/MainCard';
+import type { PropertyType } from '../../types/Property';
 
 type FavoriteLocationProps = {
   city: string;
-  places: FavoritePlaceType[];
+  places: PropertyType[];
 }
 
 function FavoriteLocation(props: FavoriteLocationProps) : JSX.Element {

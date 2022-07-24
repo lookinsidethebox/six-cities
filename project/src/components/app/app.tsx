@@ -8,11 +8,13 @@ import PropertyScreen from '../../pages/property-screen/property-screen';
 import PropertyNotLoggedScreen from '../../pages/property-not-logged-screen/property-not-logged-screen';
 import PrivateRoute from '../private-route/private-route';
 import PrivateRouteWithPublic from '../private-route/private-route-with-public';
+import type { PropertyType } from '../../types/Property';
 
 type AppScreenProps = {
   placesCount: number;
   placeName: string;
   cities: string[];
+  offers: PropertyType[];
 }
 
 function App(props: AppScreenProps): JSX.Element {
@@ -21,7 +23,14 @@ function App(props: AppScreenProps): JSX.Element {
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainScreen cities={props.cities} placeName={props.placeName} placesCount={props.placesCount} />}
+          element={
+            <MainScreen
+              cities={props.cities}
+              placeName={props.placeName}
+              placesCount={props.placesCount}
+              offers={props.offers}
+            />
+          }
         />
         <Route
           path={AppRoute.Login}
@@ -31,7 +40,7 @@ function App(props: AppScreenProps): JSX.Element {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <FavoritesScreen />
+              <FavoritesScreen favorites={props.offers} />
             </PrivateRoute>
           }
         />
@@ -39,9 +48,9 @@ function App(props: AppScreenProps): JSX.Element {
           path={AppRoute.Room}
           element={
             <PrivateRouteWithPublic
-              authorizationStatus={AuthorizationStatus.NoAuth}
-              publicChild={<PropertyNotLoggedScreen />}
-              privateChild={<PropertyScreen />}
+              authorizationStatus={AuthorizationStatus.Auth}
+              publicChild={<PropertyNotLoggedScreen offers={props.offers} />}
+              privateChild={<PropertyScreen offers={props.offers} />}
             />
           }
         />
