@@ -27,8 +27,8 @@ function FavoritesScreen({favorites}: FavoritesScreenProps) : JSX.Element {
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
             {
-              groupByCity(favorites).map((val) => (
-                <FavoriteLocation key={val[0]} city={val[0]} places={val[1]}/>
+              groupByCity(favorites).map((favorite) => (
+                <FavoriteLocation key={favorite[0]} city={favorite[0]} places={favorite[1]}/>
               ))
             }
           </ul>
