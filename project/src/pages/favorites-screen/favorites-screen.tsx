@@ -15,12 +15,10 @@ function isUnique(element: GroupedProperty, index: number, array: GroupedPropert
 }
 
 function groupByCity(list: PropertyType[]) : GroupedProperty[] {
-  const result : GroupedProperty[] = list.map((item) => ({
+  return list.map((item) => ({
     city: item.city,
     properties: list.filter((property) => property.city === item.city)
   })).filter(isUnique);
-
-  return result;
 }
 
 
