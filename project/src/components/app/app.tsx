@@ -48,7 +48,7 @@ function App(props: AppScreenProps): JSX.Element {
           path={AppRoute.Room}
           element={
             <PrivateRouteWithPublic
-              authorizationStatus={AuthorizationStatus.Auth}
+              authorizationStatus={AuthorizationStatus.NoAuth}
               publicChild={<PropertyNotLoggedScreen offers={props.offers} />}
               privateChild={<PropertyScreen offers={props.offers} />}
             />

@@ -5,19 +5,24 @@ type FavoritesScreenProps = {
   favorites: PropertyType[];
 }
 
-function groupByCity(list: PropertyType[]) {
-  const map = new Map<string, PropertyType[]>();
-  list.forEach((item) => {
-    const key = item.city;
-    const collection = map.get(key);
-    if (!collection) {
-      map.set(key, [item]);
-    } else {
-      collection.push(item);
-    }
-  });
-  return Array.from(map.entries());
+type GroupedProperty = {
+  city: string;
+  properties: PropertyType[];
 }
+
+function isUnique(element: GroupedProperty, index: number, array: GroupedProperty[]) {
+  return array.findIndex(item => item.city === element.city) === index;
+}
+
+function groupByCity(list: PropertyType[]) : GroupedProperty[] {
+  const result : GroupedProperty[] = list.map((item) => ({
+    city: item.city,
+    properties: list.filter((property) => property.city === item.city)
+  })).filter(isUnique);
+
+  return result;
+}
+
 
 function FavoritesScreen({favorites}: FavoritesScreenProps) : JSX.Element {
   return (
@@ -28,7 +33,7 @@ function FavoritesScreen({favorites}: FavoritesScreenProps) : JSX.Element {
           <ul className="favorites__list">
             {
               groupByCity(favorites).map((favorite) => (
-                <FavoriteLocation key={favorite[0]} city={favorite[0]} places={favorite[1]}/>
+                <FavoriteLocation key={favorite.city} city={favorite.city} places={favorite.properties}/>
               ))
             }
           </ul>
