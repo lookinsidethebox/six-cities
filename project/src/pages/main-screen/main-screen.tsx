@@ -1,5 +1,5 @@
 import Cities from '../../components/cities/cities';
-import CardList from '../../components/card-list/card-list';
+import MainCard from '../../components/main-card/main-card';
 import type { PropertyType } from '../../types/Property';
 
 type MainScreenProps = {
@@ -33,7 +33,17 @@ function MainScreen(props: MainScreenProps): JSX.Element {
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <CardList offers={props.offers} />
+            <div className="cities__places-list places__list tabs__content">
+              {
+                props.offers.map((offer) => (
+                  <MainCard
+                    key={offer.id}
+                    card={offer}
+                    isNear={false}
+                  />
+                ))
+              }
+            </div>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
