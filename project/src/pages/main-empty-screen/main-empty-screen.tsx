@@ -1,8 +1,9 @@
 import Cities from '../../components/cities/cities';
+import type { City } from '../../types/City';
 
 type MainEmptyScreenProps = {
   placeName: string;
-  cities: string[];
+  cities: City[];
 }
 
 function MainEmptyScreen(props: MainEmptyScreenProps) : JSX.Element {

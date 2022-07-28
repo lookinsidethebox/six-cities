@@ -1,7 +1,8 @@
 import React from 'react';
+import type { City } from '../../types/City';
 
 type CitiesProps = {
-  cities: string[];
+  cities: City[];
 }
 
 function Cities({cities}: CitiesProps) : JSX.Element {
@@ -13,9 +14,9 @@ function Cities({cities}: CitiesProps) : JSX.Element {
           <ul className="locations__list tabs__list">
             {
               cities.map((city) => (
-                <li className="locations__item" key={city}>
+                <li className="locations__item" key={city.id}>
                   <a className="locations__item-link tabs__item" href="/">
-                    <span>{city}</span>
+                    <span>{city.name}</span>
                   </a>
                 </li>)
               )

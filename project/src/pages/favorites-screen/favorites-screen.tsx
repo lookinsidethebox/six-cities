@@ -11,7 +11,7 @@ type GroupedProperty = {
 }
 
 function isUnique(element: GroupedProperty, index: number, array: GroupedProperty[]) {
-  return array.findIndex(item => item.city === element.city) === index;
+  return array.findIndex((item) => item.city === element.city) === index;
 }
 
 function groupByCity(list: PropertyType[]) : GroupedProperty[] {
@@ -20,7 +20,6 @@ function groupByCity(list: PropertyType[]) : GroupedProperty[] {
     properties: list.filter((property) => property.city === item.city)
   })).filter(isUnique);
 }
-
 
 function FavoritesScreen({favorites}: FavoritesScreenProps) : JSX.Element {
   return (
