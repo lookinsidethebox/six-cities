@@ -1,60 +1,13 @@
-import MainCard from '../../components/main-card/main-card';
 import Cities from '../../components/cities/cities';
-import type { MainCardType } from '../../types/MainCard';
+import MainCard from '../../components/main-card/main-card';
+import type { PropertyType } from '../../types/Property';
 
 type MainScreenProps = {
   placesCount: number;
   placeName: string;
   cities: string[];
+  offers: PropertyType[];
 }
-
-const cards : MainCardType[] = [
-  {
-    isPremium: true,
-    isInBookmarks: false,
-    imgUrl: 'img/apartment-01.jpg',
-    price: 120,
-    name: 'Beautiful &amp; luxurious apartment at great location',
-    type: 'Apartment',
-    isNear: false
-  },
-  {
-    isPremium: false,
-    isInBookmarks: true,
-    imgUrl: 'img/room.jpg',
-    price: 80,
-    name: 'Wood and stone place',
-    type: 'Private room',
-    isNear: false
-  },
-  {
-    isPremium: false,
-    isInBookmarks: false,
-    imgUrl: 'img/apartment-02.jpg',
-    price: 132,
-    name: 'Canal View Prinsengracht',
-    type: 'Apartment',
-    isNear: false
-  },
-  {
-    isPremium: true,
-    isInBookmarks: false,
-    imgUrl: 'img/apartment-03.jpg',
-    price: 180,
-    name: 'Nice, cozy, warm big bed apartment',
-    type: 'Apartment',
-    isNear: false
-  },
-  {
-    isPremium: false,
-    isInBookmarks: true,
-    imgUrl: 'img/room.jpg',
-    price: 80,
-    name: 'Wood and stone place',
-    type: 'Private room',
-    isNear: false
-  }
-];
 
 function MainScreen(props: MainScreenProps): JSX.Element {
   return (
@@ -82,8 +35,12 @@ function MainScreen(props: MainScreenProps): JSX.Element {
             </form>
             <div className="cities__places-list places__list tabs__content">
               {
-                cards.map((card) => (
-                  <MainCard key={card.name} card={card} />
+                props.offers.map((offer) => (
+                  <MainCard
+                    key={offer.id}
+                    card={offer}
+                    isNear={false}
+                  />
                 ))
               }
             </div>

@@ -1,7 +1,8 @@
-import type { FavoritePlaceType } from '../../types/MainCard';
+import type { PropertyType } from '../../types/Property';
+import { Link } from 'react-router-dom';
 
 type FavoritePlaceProps = {
-  place: FavoritePlaceType
+  place: PropertyType
 };
 
 function FavoritePlace({place}: FavoritePlaceProps) : JSX.Element {
@@ -14,9 +15,9 @@ function FavoritePlace({place}: FavoritePlaceProps) : JSX.Element {
         </div>
       }
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="/">
-          <img className="place-card__image" src={place.imgUrl} width="150" height="110" alt="Place image" />
-        </a>
+        <Link to={`/offer/${place.id}`}>
+          <img className="place-card__image" src={place.mainImgUrl} width="150" height="110" alt="Place image" />
+        </Link>
       </div>
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
@@ -38,7 +39,9 @@ function FavoritePlace({place}: FavoritePlaceProps) : JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/">{place.name}</a>
+          <Link to={`/offer/${place.id}`}>
+            {place.name}
+          </Link>
         </h2>
         <p className="place-card__type">{place.type}</p>
       </div>

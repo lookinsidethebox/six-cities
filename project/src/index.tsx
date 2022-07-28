@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import { offers } from './mocks/offers';
 
 const Setting = {
   PLACES_COUNT: 312,
@@ -18,6 +19,7 @@ root.render(
       placesCount={Setting.PLACES_COUNT}
       placeName={Setting.PLACE_NAME}
       cities={Setting.CITIES}
+      offers={offers}
     />
   </React.StrictMode>,
 );
