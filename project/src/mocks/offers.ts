@@ -27,7 +27,11 @@ export const offers : PropertyType[] = [
       dateTime: '2019-04-24',
       text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.'
     }],
-    city: 'Amsterdam'
+    city: 'Amsterdam',
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198
+    }
   },
   {
     id: 2,
@@ -47,7 +51,11 @@ export const offers : PropertyType[] = [
     propertyInside: ['Wi-Fi','Coffee machine','Kitchen','Dishwasher','Fridge'],
     description: ['Comfortable and neat room with welcoming hosts.'],
     reviews: [],
-    city: 'Amsterdam'
+    city: 'Amsterdam',
+    location: {
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198
+    }
   },
   {
     id: 3,
@@ -74,7 +82,11 @@ export const offers : PropertyType[] = [
       dateTime: '2021-09-05',
       text: 'Wonderful view!'
     }],
-    city: 'Amsterdam'
+    city: 'Amsterdam',
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198
+    }
   },
   {
     id: 4,
@@ -94,6 +106,10 @@ export const offers : PropertyType[] = [
     propertyInside: ['Wi-Fi','Washing machine','Towels','Heating','Coffee machine','Baby seat','Kitchen','Dishwasher','Cabel TV','Fridge'],
     description: ['Good choice for a big company.'],
     reviews: [],
-    city: 'Cologne'
+    city: 'Amsterdam',
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198
+    }
   }
 ];

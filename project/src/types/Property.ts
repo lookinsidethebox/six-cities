@@ -17,6 +17,10 @@ export type PropertyType = {
   description: string[];
   reviews: ReviewItemType[];
   city: string;
+  location: {
+    latitude: number;
+    longitude: number;
+  }
 };
 
 export type ReviewItemType = {

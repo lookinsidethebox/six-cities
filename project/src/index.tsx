@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { offers } from './mocks/offers';
+import { cities } from './mocks/cities';
 
 const Setting = {
   PLACES_COUNT: 312,
   PLACE_NAME: 'Amsterdam',
-  CITIES: ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf']
+  CITIES: cities
 };
 
 const root = ReactDOM.createRoot(

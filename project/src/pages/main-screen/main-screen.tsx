@@ -1,15 +1,34 @@
 import Cities from '../../components/cities/cities';
 import MainCard from '../../components/main-card/main-card';
+import CityMap from '../../components/map/map';
 import type { PropertyType } from '../../types/Property';
+import type { City } from '../../types/City';
 
 type MainScreenProps = {
   placesCount: number;
   placeName: string;
-  cities: string[];
+  cities: City[];
   offers: PropertyType[];
 }
 
+const DEFAULT_CITY_ID = 4;
+
+function GetOfferById(cities: City[], id: number) {
+  return cities.find((x) => x.id === id) ??
+    {
+      id: DEFAULT_CITY_ID,
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.377956,
+        longitude: 4.897070,
+        zoom: 10
+      }
+    };
+}
+
 function MainScreen(props: MainScreenProps): JSX.Element {
+  const currentCity = GetOfferById(props.cities, DEFAULT_CITY_ID);
+
   return (
     <main className="page__main page__main--index">
       <Cities cities={props.cities} />
@@ -46,7 +65,12 @@ function MainScreen(props: MainScreenProps): JSX.Element {
             </div>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <section style={{ width: '100%' }} >
+              <CityMap
+                city={currentCity}
+                offers={props.offers}
+              />
+            </section>
           </div>
         </div>
       </div>

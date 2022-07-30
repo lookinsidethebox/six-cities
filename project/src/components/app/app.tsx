@@ -9,11 +9,12 @@ import PropertyNotLoggedScreen from '../../pages/property-not-logged-screen/prop
 import PrivateRoute from '../private-route/private-route';
 import PrivateRouteWithPublic from '../private-route/private-route-with-public';
 import type { PropertyType } from '../../types/Property';
+import type { City } from '../../types/City';
 
 type AppScreenProps = {
   placesCount: number;
   placeName: string;
-  cities: string[];
+  cities: City[];
   offers: PropertyType[];
 }
 
