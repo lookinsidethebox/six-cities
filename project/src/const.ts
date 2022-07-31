@@ -1,3 +1,6 @@
+import { cities } from './mocks/cities';
+import type { City } from './types/City';
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -10,3 +13,12 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const CityList : City[] = [
+  cities.Paris,
+  cities.Cologne,
+  cities.Brussels,
+  cities.Amsterdam,
+  cities.Hamburg,
+  cities.Dusseldorf
+];

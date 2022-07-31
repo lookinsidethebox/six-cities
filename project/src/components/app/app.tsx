@@ -9,12 +9,8 @@ import PropertyNotLoggedScreen from '../../pages/property-not-logged-screen/prop
 import PrivateRoute from '../private-route/private-route';
 import PrivateRouteWithPublic from '../private-route/private-route-with-public';
 import type { PropertyType } from '../../types/Property';
-import type { City } from '../../types/City';
 
 type AppScreenProps = {
-  placesCount: number;
-  placeName: string;
-  cities: City[];
   offers: PropertyType[];
 }
 
@@ -25,17 +21,12 @@ function App(props: AppScreenProps): JSX.Element {
         <Route
           path={AppRoute.Main}
           element={
-            <MainScreen
-              cities={props.cities}
-              placeName={props.placeName}
-              placesCount={props.placesCount}
-              offers={props.offers}
-            />
+            <MainScreen />
           }
         />
         <Route
           path={AppRoute.Login}
-          element={<LoginScreen city={props.placeName} />}
+          element={<LoginScreen />}
         />
         <Route
           path={AppRoute.Favorites}

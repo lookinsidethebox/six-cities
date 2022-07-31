@@ -1,7 +1,7 @@
-import type { City } from '../types/City';
+import type { CityItem } from '../types/City';
 
-export const cities : City[] = [
-  {
+export const cities : CityItem = {
+  'Paris': {
     id: 1,
     name: 'Paris',
     location: {
@@ -10,7 +10,7 @@ export const cities : City[] = [
       zoom: 10
     }
   },
-  {
+  'Cologne': {
     id: 2,
     name: 'Cologne',
     location: {
@@ -19,7 +19,7 @@ export const cities : City[] = [
       zoom: 10
     }
   },
-  {
+  'Brussels': {
     id: 3,
     name: 'Brussels',
     location: {
@@ -28,7 +28,7 @@ export const cities : City[] = [
       zoom: 10
     }
   },
-  {
+  'Amsterdam': {
     id: 4,
     name: 'Amsterdam',
     location: {
@@ -37,7 +37,7 @@ export const cities : City[] = [
       zoom: 10
     }
   },
-  {
+  'Hamburg': {
     id: 5,
     name: 'Hamburg',
     location: {
@@ -46,7 +46,7 @@ export const cities : City[] = [
       zoom: 10
     }
   },
-  {
+  'Dusseldorf': {
     id: 6,
     name: 'Dusseldorf',
     location: {
@@ -55,4 +55,4 @@ export const cities : City[] = [
       zoom: 10
     }
   }
-];
+};

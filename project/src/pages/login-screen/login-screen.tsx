@@ -1,8 +1,9 @@
-type LoginScreenProps = {
-  city: string;
-};
+import { useAppSelector } from '../../hooks';
+import { Link } from 'react-router-dom';
 
-function LoginScreen({city}: LoginScreenProps) : JSX.Element {
+function LoginScreen() : JSX.Element {
+  const currentCity = useAppSelector((state) => state.city);
+
   return (
     <main className="page__main page__main--login">
       <div className="page__login-container container">
@@ -22,9 +23,12 @@ function LoginScreen({city}: LoginScreenProps) : JSX.Element {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <a className="locations__item-link" href="/">
-              <span>{city}</span>
-            </a>
+            <Link
+              className="locations__item-link"
+              to={`/?tab=${currentCity.name}`}
+            >
+              <span>{currentCity.name}</span>
+            </Link>
           </div>
         </section>
       </div>

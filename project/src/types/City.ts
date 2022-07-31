@@ -7,3 +7,7 @@ export type City = {
     zoom: number;
   }
 };
+
+export type CityItem = {
+  [propertyName: string]: City
+};
