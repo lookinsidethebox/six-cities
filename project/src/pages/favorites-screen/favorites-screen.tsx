@@ -13,15 +13,20 @@ type GroupedProperty = {
   properties: PropertyType[];
 }
 
-function isUnique(element: GroupedProperty, index: number, array: GroupedProperty[]) {
-  return array.findIndex((item) => item.cityId === element.cityId) === index;
-}
-
-function groupByCity(list: PropertyType[]) : GroupedProperty[] {
-  return list.map((item) => ({
-    cityId: item.cityId,
-    properties: list.filter((property) => property.cityId === item.cityId)
-  })).filter(isUnique);
+function groupByCity(list: PropertyType[]) {
+  const set = new Set<number>();
+  return list.reduce((accumulator: GroupedProperty[], currentValue) =>
+  {
+    const acc = accumulator;
+    if (!set.has(currentValue.cityId)) {
+      set.add(currentValue.cityId);
+      acc.push({
+        cityId: currentValue.cityId,
+        properties: list.filter((property) => property.cityId === currentValue.cityId)
+      });
+    }
+    return acc;
+  }, []);
 }
 
 function getCityById(id: number) : City {

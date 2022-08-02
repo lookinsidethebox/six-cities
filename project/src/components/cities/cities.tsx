@@ -1,7 +1,6 @@
 import React from 'react';
 import type { City } from '../../types/City';
-import { useAppDispatch } from '../../hooks';
-import { changeCity, getOffers } from '../../store/action';
+
 import CityItem from '../city/city';
 
 type CitiesProps = {
@@ -10,13 +9,6 @@ type CitiesProps = {
 }
 
 function Cities(props: CitiesProps) : JSX.Element {
-  const dispatch = useAppDispatch();
-
-  const onCityClick = (city: City) => {
-    dispatch(changeCity(city));
-    dispatch(getOffers());
-  };
-
   return(
     <React.Fragment>
       <h1 className="visually-hidden">Cities</h1>
@@ -25,7 +17,7 @@ function Cities(props: CitiesProps) : JSX.Element {
           <ul className="locations__list tabs__list">
             {
               props.cities.map((city) =>
-                <CityItem key={city.id} city={city} currentCity={props.currentCity} onClick={onCityClick} />
+                <CityItem key={city.id} city={city} currentCity={props.currentCity} />
               )
             }
           </ul>

@@ -1,15 +1,23 @@
 import { City } from '../../types/City';
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { changeCity, getOffers } from '../../store/action';
 
 type CityProps = {
   city: City,
-  currentCity: City,
-  onClick: (city: City) => void;
+  currentCity: City
 }
 
 function CityItem(props: CityProps) : JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const onCityClick = (city: City) => {
+    dispatch(changeCity(city));
+    dispatch(getOffers());
+  };
+
   return (
-    <li className="locations__item" key={props.city.id} onClick={() => props.onClick(props.city)}>
+    <li className="locations__item" key={props.city.id} onClick={() => onCityClick}>
       <Link
         className={`${props.currentCity.id === props.city.id ? 'tabs__item--active' : ''} locations__item-link tabs__item`}
         to={`?tab=${props.city.name}`}
