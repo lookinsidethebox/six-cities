@@ -37,7 +37,7 @@ function CityMap(props: CityMapProps) : JSX.Element {
 
   return (
     <div
-      style={{height: '500px'}}
+      style={{ height: '800px' }}
       ref={mapRef}
     >
     </div>

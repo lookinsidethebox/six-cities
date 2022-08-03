@@ -16,7 +16,7 @@ export type PropertyType = {
   propertyInside: string[];
   description: string[];
   reviews: ReviewItemType[];
-  city: string;
+  cityId: number;
   location: {
     latitude: number;
     longitude: number;
