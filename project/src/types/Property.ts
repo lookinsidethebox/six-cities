@@ -31,3 +31,8 @@ export type ReviewItemType = {
   dateTime: string;
   text: string;
 };
+
+export type GroupedProperty = {
+  cityId: number;
+  properties: PropertyType[];
+}
