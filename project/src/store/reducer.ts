@@ -1,15 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { offers } from '../mocks/offers';
-import { cities } from '../mocks/cities';
-import { changeCity, getOffers } from './action';
-import type { PropertyType } from '../types/Property';
+import { changeCity, getOffers, setSort, toggleSortMenu } from './action';
+import { getDefaultCity, getDefaultSortId, getOffersByCity, getSortById } from '../hooks';
 
-const DEFAULT_CITY = cities.Paris;
-const getOffersByCity = (offerList: PropertyType[], id: number) => offerList.filter((offer) => offer.cityId === id);
+const DEFAULT_CITY = getDefaultCity();
+const DEFAULT_SORT = getDefaultSortId();
 
 const initialState = {
   city: DEFAULT_CITY,
-  offers: getOffersByCity(offers, DEFAULT_CITY.id),
+  offers: getOffersByCity(DEFAULT_CITY.id, DEFAULT_SORT),
+  sort: getSortById(DEFAULT_SORT),
+  sortMenuIsVisible: false
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -18,7 +18,13 @@ const reducer = createReducer(initialState, (builder) => {
       state.city = action.payload;
     })
     .addCase(getOffers, (state) => {
-      state.offers = getOffersByCity(offers, state.city.id);
+      state.offers = getOffersByCity(state.city.id, state.sort.id);
+    })
+    .addCase(setSort, (state, action) => {
+      state.sort = getSortById(action.payload);
+    })
+    .addCase(toggleSortMenu, (state) => {
+      state.sortMenuIsVisible = !state.sortMenuIsVisible;
     });
 });
 
