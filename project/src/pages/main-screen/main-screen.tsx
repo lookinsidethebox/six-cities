@@ -41,6 +41,7 @@ function MainScreen(): JSX.Element {
                   city={currentCity}
                   offers={offersByCity}
                   selectedOffer={activeCard}
+                  height={800}
                 />
               </section>
             </div>

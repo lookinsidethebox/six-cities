@@ -5,6 +5,7 @@ import type { City } from '../types/City';
 import { sorts } from '../mocks/sorts';
 import { offers } from '../mocks/offers';
 import { cities } from '../mocks/cities';
+import { CityList } from '../const';
 import { sortByPriceToHigh, sortByPriceToLow, sortByTopRated } from './sortUtils';
 
 const DEFAULT_SORT = 1;
