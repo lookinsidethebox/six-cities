@@ -38,7 +38,7 @@ function MainScreen(): JSX.Element {
                     <MainCard
                       key={offer.id}
                       card={offer}
-                      isNear={false}
+                      isNearby={false}
                     />
                   ))
                 }
@@ -49,6 +49,7 @@ function MainScreen(): JSX.Element {
                 <CityMap
                   city={currentCity}
                   offers={offersByCity}
+                  height={800}
                 />
               </section>
             </div>

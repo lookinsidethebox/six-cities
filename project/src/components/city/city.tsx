@@ -17,7 +17,7 @@ function CityItem(props: CityProps) : JSX.Element {
   };
 
   return (
-    <li className="locations__item" key={props.city.id} onClick={() => onCityClick}>
+    <li className="locations__item" key={props.city.id} onClick={() => onCityClick(props.city)}>
       <Link
         className={`${props.currentCity.id === props.city.id ? 'tabs__item--active' : ''} locations__item-link tabs__item`}
         to={`?tab=${props.city.name}`}

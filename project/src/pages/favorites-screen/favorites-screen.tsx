@@ -1,36 +1,9 @@
 import FavoriteLocation from '../../components/favorite-location/favorite-location';
 import type { PropertyType } from '../../types/Property';
-import { CityList } from '../../const';
-import { cities } from '../../mocks/cities';
-import type { City } from '../../types/City';
+import { groupByCity, getCityById } from '../../hooks';
 
 type FavoritesScreenProps = {
   favorites: PropertyType[];
-}
-
-type GroupedProperty = {
-  cityId: number;
-  properties: PropertyType[];
-}
-
-function groupByCity(list: PropertyType[]) {
-  const set = new Set<number>();
-  return list.reduce((accumulator: GroupedProperty[], currentValue) =>
-  {
-    const acc = accumulator;
-    if (!set.has(currentValue.cityId)) {
-      set.add(currentValue.cityId);
-      acc.push({
-        cityId: currentValue.cityId,
-        properties: list.filter((property) => property.cityId === currentValue.cityId)
-      });
-    }
-    return acc;
-  }, []);
-}
-
-function getCityById(id: number) : City {
-  return CityList.filter((city) => city.id === id).shift() ?? cities.Paris;
 }
 
 function FavoritesScreen({favorites}: FavoritesScreenProps) : JSX.Element {
