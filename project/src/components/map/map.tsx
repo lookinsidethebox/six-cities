@@ -8,7 +8,8 @@ import useMap from './useMap';
 type CityMapProps = {
   offers: PropertyType[],
   selectedOffer?: PropertyType | undefined,
-  city: City
+  city: City,
+  height: number
 }
 
 function CityMap(props: CityMapProps) : JSX.Element {
@@ -52,7 +53,7 @@ function CityMap(props: CityMapProps) : JSX.Element {
 
   return (
     <div
-      style={{ height: '800px' }}
+      style={{ height: `${props.height}px` }}
       ref={mapRef}
     >
     </div>

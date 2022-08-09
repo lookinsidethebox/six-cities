@@ -4,20 +4,20 @@ import { Link } from 'react-router-dom';
 
 type MainCardProps = {
   card: PropertyType;
-  isNear: boolean;
+  isNearby: boolean;
   onMouseOver?: () => void;
 }
 
 function MainCard(props: MainCardProps): JSX.Element {
   return (
-    <article onMouseOver={props.onMouseOver} className={`${props.isNear ? 'near-places__card' : 'cities__card'} place-card`}>
+    <article onMouseOver={props.onMouseOver} className={`${props.isNearby ? 'near-places__card' : 'cities__card'} place-card`}>
       {
         props.card.isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
-      <div className={`${props.isNear ? 'near-places__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}>
+      <div className={`${props.isNearby ? 'near-places__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}>
         <Link to={`/offer/${props.card.id}`}>
           <img className="place-card__image" src={props.card.mainImgUrl} width="260" height="200" alt="Offer" />
         </Link>

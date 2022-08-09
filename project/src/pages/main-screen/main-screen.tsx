@@ -28,7 +28,7 @@ function MainScreen(): JSX.Element {
                     <MainCard
                       key={offer.id}
                       card={offer}
-                      isNear={false}
+                      isNearby={false}
                       onMouseOver={() => setActiveCardId(offer)}
                     />
                   ))
