@@ -1,6 +1,6 @@
 import React from 'react';
 import Review from '../review/review';
-import { PropertyType } from '../../types/Property';
+import { PropertyType, Offers } from '../../types/Property';
 import MainCard from '../../components/main-card/main-card';
 import CityMap from '../../components/map/map';
 import { getCityById } from '../../hooks';
@@ -8,7 +8,7 @@ import { getCityById } from '../../hooks';
 type PropertyItemProps = {
   property: PropertyType;
   showReviews: boolean;
-  offersNearby: PropertyType[];
+  offersNearby: Offers;
 }
 
 function PropertyItem(props: PropertyItemProps) : JSX.Element {
@@ -20,7 +20,7 @@ function PropertyItem(props: PropertyItemProps) : JSX.Element {
             {
               props.property.imgUrls.map((url) => (
                 <div className="property__image-wrapper" key={url}>
-                  <img className="property__image" src={url} alt="Photo studio" />
+                  <img className="property__image" src={url} alt="Studio" />
                 </div>
               ))
             }

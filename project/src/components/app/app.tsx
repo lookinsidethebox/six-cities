@@ -8,10 +8,10 @@ import PropertyScreen from '../../pages/property-screen/property-screen';
 import PropertyNotLoggedScreen from '../../pages/property-not-logged-screen/property-not-logged-screen';
 import PrivateRoute from '../private-route/private-route';
 import PrivateRouteWithPublic from '../private-route/private-route-with-public';
-import type { PropertyType } from '../../types/Property';
+import type { Offers } from '../../types/Property';
 
 type AppScreenProps = {
-  offers: PropertyType[];
+  offers: Offers;
 }
 
 function App(props: AppScreenProps): JSX.Element {

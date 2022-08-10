@@ -8,6 +8,6 @@ const Action = {
 };
 
 export const changeCity = createAction(Action.CHANGE_CITY, (value) => ({payload: value}));
-export const getOffers = createAction(Action.GET_OFFERS_BY_CITY);
+export const getOffers = createAction(Action.GET_OFFERS_BY_CITY, (value) => ({payload: value}));
 export const setSort = createAction(Action.SET_SORT, (value) => ({payload: value}));
 export const toggleSortMenu = createAction(Action.TOGGLE_SORT_MENU);

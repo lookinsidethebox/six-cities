@@ -1,12 +1,12 @@
 import { useRef, useEffect } from 'react';
 import { Icon, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import type { PropertyType } from '../../types/Property';
+import type { PropertyType, Offers } from '../../types/Property';
 import type { City } from '../../types/City';
 import useMap from './useMap';
 
 type CityMapProps = {
-  offers: PropertyType[],
+  offers: Offers,
   selectedOffer?: PropertyType | undefined,
   city: City,
   height: number

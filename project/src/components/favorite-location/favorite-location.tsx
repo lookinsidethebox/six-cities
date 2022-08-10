@@ -1,13 +1,13 @@
 import FavoritePlace from '../../components/favorite-place/favorites-place';
 import { City } from '../../types/City';
-import type { PropertyType } from '../../types/Property';
+import type { Offers } from '../../types/Property';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { changeCity, getOffers } from '../../store/action';
 
 type FavoriteLocationProps = {
   city: City;
-  places: PropertyType[];
+  places: Offers;
 }
 
 function FavoriteLocation(props: FavoriteLocationProps) : JSX.Element {

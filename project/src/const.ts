@@ -22,3 +22,7 @@ export const CityList : City[] = [
   cities.Hamburg,
   cities.Dusseldorf
 ];
+
+export enum ApiRoute {
+  Offers = '/hotels'
+}

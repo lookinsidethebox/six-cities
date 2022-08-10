@@ -23,6 +23,8 @@ export type PropertyType = {
   }
 };
 
+export type Offers = PropertyType[];
+
 export type ReviewItemType = {
   id: number;
   name: string;
@@ -34,5 +36,5 @@ export type ReviewItemType = {
 
 export type GroupedProperty = {
   cityId: number;
-  properties: PropertyType[];
+  properties: Offers;
 }

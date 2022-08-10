@@ -1,9 +1,8 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import type { State, AppDispatch } from '../types/State';
-import type { PropertyType, GroupedProperty } from '../types/Property';
+import type { Offers, GroupedProperty } from '../types/Property';
 import type { City } from '../types/City';
 import { sorts } from '../mocks/sorts';
-import { offers } from '../mocks/offers';
 import { cities } from '../mocks/cities';
 import { CityList } from '../const';
 import { sortByPriceToHigh, sortByPriceToLow, sortByTopRated } from './sortUtils';
@@ -16,7 +15,7 @@ export const getSortById = (id: number) => sorts.filter((sort) => sort.id === id
 export const getDefaultCity = () => cities.Paris;
 export const getDefaultSortId = () => DEFAULT_SORT;
 
-export function getOffersByCity (id: number, sort: number) {
+export function getOffersByCity (offers: Offers, id: number, sort: number) {
   const result = offers.filter((offer) => offer.cityId === id);
 
   switch(sort) {
@@ -31,7 +30,7 @@ export function getOffersByCity (id: number, sort: number) {
   return result;
 }
 
-export function groupByCity(list: PropertyType[]) {
+export function groupByCity(list: Offers) {
   const set = new Set<number>();
   return list.reduce((accumulator: GroupedProperty[], currentValue) =>
   {
