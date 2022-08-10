@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, getOffers, setSort, toggleSortMenu } from './action';
+import { changeCity, getOffers, setSort } from './action';
 import { getDefaultCity, getDefaultSortId, getOffersByCity, getSortById } from '../hooks';
 import { Offers } from '../types/Property';
 
@@ -10,7 +10,6 @@ const initialState = {
   city: DEFAULT_CITY,
   offers: [] as Offers,
   sort: getSortById(DEFAULT_SORT),
-  sortMenuIsVisible: false,
   isLoading: false
 };
 
@@ -26,9 +25,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setSort, (state, action) => {
       state.sort = getSortById(action.payload);
-    })
-    .addCase(toggleSortMenu, (state) => {
-      state.sortMenuIsVisible = !state.sortMenuIsVisible;
     });
 });
 
