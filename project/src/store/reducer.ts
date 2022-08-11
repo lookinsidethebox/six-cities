@@ -1,14 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, getOffers, setSort } from './action';
-import { getDefaultCity, getDefaultSortId, getOffersByCity, getSortById } from '../hooks';
-
-const DEFAULT_CITY = getDefaultCity();
-const DEFAULT_SORT = getDefaultSortId();
+import { changeCity, getOffers, setSortType } from './action';
+import { getOffersByCity, getSortTypeById } from '../utils';
+import { DefaultCity, DefaultSortType } from '../const';
 
 const initialState = {
-  city: DEFAULT_CITY,
-  offers: getOffersByCity(DEFAULT_CITY.id, DEFAULT_SORT),
-  sort: getSortById(DEFAULT_SORT)
+  city: DefaultCity,
+  offers: getOffersByCity(DefaultCity.id, DefaultSortType.id),
+  sortType: DefaultSortType
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -17,10 +15,10 @@ const reducer = createReducer(initialState, (builder) => {
       state.city = action.payload;
     })
     .addCase(getOffers, (state) => {
-      state.offers = getOffersByCity(state.city.id, state.sort.id);
+      state.offers = getOffersByCity(state.city.id, state.sortType.id);
     })
-    .addCase(setSort, (state, action) => {
-      state.sort = getSortById(action.payload);
+    .addCase(setSortType, (state, action) => {
+      state.sortType = getSortTypeById(action.payload);
     });
 });
 

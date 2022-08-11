@@ -1,6 +1,6 @@
-import type { Sort } from '../types/Sort';
+import type { SortType } from '../types/SortType';
 
-export const sorts : Sort[] = [
+export const sortTypes : SortType[] = [
   {
     id: 1,
     name: 'Popular'
