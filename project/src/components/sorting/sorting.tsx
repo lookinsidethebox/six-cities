@@ -1,7 +1,7 @@
 import { sortTypes } from '../../mocks/sortTypes';
 import { useAppSelector } from '../../hooks';
 import { useAppDispatch } from '../../hooks';
-import { setSortType, getOffers } from '../../store/action';
+import { setSortType, updateOffers } from '../../store/action';
 import React from 'react';
 
 const DEFAULT_TAB_INDEX = 0;
@@ -13,7 +13,7 @@ function Sorting() : JSX.Element {
 
   const onSortTypeClick = (id: number) => {
     dispatch(setSortType(id));
-    dispatch(getOffers());
+    dispatch(updateOffers());
   };
 
   return (
