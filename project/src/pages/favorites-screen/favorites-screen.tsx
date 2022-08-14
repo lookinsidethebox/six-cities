@@ -1,6 +1,6 @@
 import FavoriteLocation from '../../components/favorite-location/favorite-location';
 import type { Offers } from '../../types/Property';
-import { groupByCity, getCityById } from '../../hooks';
+import { groupByCity, getCityById } from '../../utils';
 
 type FavoritesScreenProps = {
   favorites: Offers;

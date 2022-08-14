@@ -1,4 +1,4 @@
-export type Sort = {
+export type SortType = {
   id: number;
   name: string;
 };

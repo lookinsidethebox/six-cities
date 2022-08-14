@@ -1,7 +1,7 @@
 import { City } from '../../types/City';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changeCity, getOffers } from '../../store/action';
+import { changeCity, updateOffers } from '../../store/action';
 
 type CityProps = {
   city: City,
@@ -13,7 +13,7 @@ function CityItem(props: CityProps) : JSX.Element {
 
   const onCityClick = (city: City) => {
     dispatch(changeCity(city));
-    dispatch(getOffers());
+    dispatch(updateOffers());
   };
 
   return (

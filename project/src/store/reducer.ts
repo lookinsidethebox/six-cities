@@ -1,15 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, getOffers, setSort } from './action';
-import { getDefaultCity, getDefaultSortId, getOffersByCity, getSortById } from '../hooks';
+import { changeCity, updateOffers, setSortType } from './action';
+import { getOffersByCity, getSortTypeById } from '../utils';
 import { Offers } from '../types/Property';
-
-const DEFAULT_CITY = getDefaultCity();
-const DEFAULT_SORT = getDefaultSortId();
+import { DefaultCity, DefaultSortType } from '../const';
 
 const initialState = {
-  city: DEFAULT_CITY,
-  offers: [] as Offers,
-  sort: getSortById(DEFAULT_SORT),
+  city: DefaultCity,
+  offers: getOffersByCity(DefaultCity.id, DefaultSortType.id),
+  sortType: DefaultSortType,
   isLoading: false
 };
 
@@ -18,13 +16,13 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(changeCity, (state, action) => {
       state.city = action.payload;
     })
-    .addCase(getOffers, (state, action) => {
+    .addCase(updateOffers, (state) => {
       state.isLoading = true;
-      state.offers = getOffersByCity(action.payload, state.city.id, state.sort.id);
+      state.offers = getOffersByCity(state.city.id, state.sortType.id);
       state.isLoading = false;
     })
-    .addCase(setSort, (state, action) => {
-      state.sort = getSortById(action.payload);
+    .addCase(setSortType, (state, action) => {
+      state.sortType = getSortTypeById(action.payload);
     });
 });
 

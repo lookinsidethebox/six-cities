@@ -3,7 +3,7 @@ import Review from '../review/review';
 import { PropertyType, Offers } from '../../types/Property';
 import MainCard from '../../components/main-card/main-card';
 import CityMap from '../../components/map/map';
-import { getCityById } from '../../hooks';
+import { getCityById } from '../../utils';
 
 type PropertyItemProps = {
   property: PropertyType;
