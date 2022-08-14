@@ -9,9 +9,15 @@ import PropertyNotLoggedScreen from '../../pages/property-not-logged-screen/prop
 import PrivateRoute from '../private-route/private-route';
 import PrivateRouteWithPublic from '../private-route/private-route-with-public';
 import { useAppSelector } from '../../hooks';
+import Spinner from '../spinner/spinner';
 
 function App(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
+  const offersLoaded = useAppSelector((state) => state.offersLoaded);
+
+  if (!offersLoaded) {
+    return(<Spinner />);
+  }
 
   return (
     <BrowserRouter>

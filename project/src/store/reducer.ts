@@ -8,18 +8,18 @@ const initialState = {
   city: DefaultCity,
   offers: [] as Offers,
   sortType: DefaultSortType,
-  isLoading: false
+  offersLoaded: false
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
       state.city = action.payload;
+      state.offersLoaded = false;
     })
     .addCase(updateOffers, (state, action) => {
-      state.isLoading = true;
       state.offers = getOffersByCity(action.payload, state.city.name, state.sortType.id);
-      state.isLoading = false;
+      state.offersLoaded = true;
     })
     .addCase(setSortType, (state, action) => {
       state.sortType = getSortTypeById(action.payload);
