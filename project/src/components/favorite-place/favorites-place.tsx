@@ -16,7 +16,7 @@ function FavoritePlace({place}: FavoritePlaceProps) : JSX.Element {
       }
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${place.id}`}>
-          <img className="place-card__image" src={place.mainImgUrl} width="150" height="110" alt="Place image" />
+          <img className="place-card__image" src={place.previewImage} width="150" height="110" alt="Place preview" />
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">
@@ -40,7 +40,7 @@ function FavoritePlace({place}: FavoritePlaceProps) : JSX.Element {
         </div>
         <h2 className="place-card__name">
           <Link to={`/offer/${place.id}`}>
-            {place.name}
+            {place.title}
           </Link>
         </h2>
         <p className="place-card__type">{place.type}</p>

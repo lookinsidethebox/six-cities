@@ -3,7 +3,7 @@ import Cities from '../../components/cities/cities';
 import MainCard from '../../components/main-card/main-card';
 import CityMap from '../../components/map/map';
 import Sorting from '../../components/sorting/sorting';
-import { CityList } from '../../const';
+import { cities } from '../../mocks/cities';
 import { useAppSelector } from '../../hooks';
 import { PropertyType } from '../../types/Property';
 
@@ -15,7 +15,7 @@ function MainScreen(): JSX.Element {
   if (offersByCity && offersByCity.length > 0) {
     return (
       <main className="page__main page__main--index">
-        <Cities cities={CityList} currentCity={currentCity} />
+        <Cities cities={cities} currentCity={currentCity} />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
@@ -53,7 +53,7 @@ function MainScreen(): JSX.Element {
 
   return (
     <main className="page__main page__main--index page__main--index-empty">
-      <Cities cities={CityList} currentCity={currentCity} />
+      <Cities cities={cities} currentCity={currentCity} />
       <div className="cities">
         <div className="cities__places-container cities__places-container--empty container">
           <section className="cities__no-places">

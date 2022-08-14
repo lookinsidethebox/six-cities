@@ -1,6 +1,5 @@
 import { cities } from './mocks/cities';
-import type { City } from './types/City';
-import type { SortType } from './types/SortType';
+import { sortTypes } from './mocks/sortTypes';
 
 export enum AppRoute {
   Main = '/',
@@ -15,22 +14,9 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const CityList : City[] = [
-  cities.Paris,
-  cities.Cologne,
-  cities.Brussels,
-  cities.Amsterdam,
-  cities.Hamburg,
-  cities.Dusseldorf
-];
-
 export enum ApiRoute {
   Offers = '/hotels'
 }
 
-export const DefaultCity : City = cities.Paris;
-
-export const DefaultSortType : SortType = {
-  id: 1,
-  name: 'Popular'
-};
+export const DefaultCity = cities[0];
+export const DefaultSortType = sortTypes[0];

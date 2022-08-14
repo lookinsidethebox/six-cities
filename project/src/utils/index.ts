@@ -1,15 +1,15 @@
 import type { PropertyType, GroupedProperty } from '../types/Property';
 import type { City } from '../types/City';
+import type { Offers } from '../types/Property';
 import { sortTypes } from '../mocks/sortTypes';
-import { offers } from '../mocks/offers';
 import { cities } from '../mocks/cities';
-import { CityList } from '../const';
+import { DefaultCity } from '../const';
 import { sortByPriceToHigh, sortByPriceToLow, sortByTopRated } from './sortUtils';
 
 export const getSortTypeById = (sortTypeId: number) => sortTypes.filter((sortType) => sortType.id === sortTypeId)[0];
 
-export function getOffersByCity(cityId: number, sortTypeId: number) {
-  const result = offers.filter((offer) => offer.cityId === cityId);
+export function getOffersByCity(offers: Offers, cityName: string, sortTypeId: number) {
+  const result = offers.filter((offer) => offer.city.name === cityName);
 
   switch(sortTypeId) {
     case 2:
@@ -24,21 +24,21 @@ export function getOffersByCity(cityId: number, sortTypeId: number) {
 }
 
 export function groupByCity(list: PropertyType[]) {
-  const set = new Set<number>();
+  const set = new Set<string>();
   return list.reduce((accumulator: GroupedProperty[], currentValue) =>
   {
     const acc = accumulator;
-    if (!set.has(currentValue.cityId)) {
-      set.add(currentValue.cityId);
+    if (!set.has(currentValue.city.name)) {
+      set.add(currentValue.city.name);
       acc.push({
-        cityId: currentValue.cityId,
-        properties: list.filter((property) => property.cityId === currentValue.cityId)
+        cityName: currentValue.city.name,
+        properties: list.filter((property) => property.city.name === currentValue.city.name)
       });
     }
     return acc;
   }, []);
 }
 
-export function getCityById(id: number) : City {
-  return CityList.filter((city) => city.id === id).shift() ?? cities.Paris;
+export function getCityByName(name: string) : City {
+  return cities.filter((city) => city.name === name)[0] ?? DefaultCity;
 }

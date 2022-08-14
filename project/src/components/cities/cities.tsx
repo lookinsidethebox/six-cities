@@ -17,7 +17,7 @@ function Cities(props: CitiesProps) : JSX.Element {
           <ul className="locations__list tabs__list">
             {
               props.cities.map((city) =>
-                <CityItem key={city.id} city={city} currentCity={props.currentCity} />
+                <CityItem key={city.name} city={city} currentCity={props.currentCity} />
               )
             }
           </ul>

@@ -26,7 +26,7 @@ function PropertyNotLoggedScreen({offers}: PropertyNotLoggedScreenProps) : JSX.E
 
   return (
     <main className="page__main page__main--property">
-      <PropertyItem property={offer} showReviews={false} offersNearby={offersNearby} />
+      <PropertyItem property={offer} offersNearby={offersNearby} />
     </main>
   );
 }

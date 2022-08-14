@@ -1,6 +1,6 @@
 import FavoriteLocation from '../../components/favorite-location/favorite-location';
 import type { Offers } from '../../types/Property';
-import { groupByCity, getCityById } from '../../utils';
+import { groupByCity, getCityByName } from '../../utils';
 
 type FavoritesScreenProps = {
   favorites: Offers;
@@ -16,7 +16,7 @@ function FavoritesScreen({favorites}: FavoritesScreenProps) : JSX.Element {
             <ul className="favorites__list">
               {
                 groupByCity(favorites).map((favorite) => (
-                  <FavoriteLocation key={favorite.cityId} city={getCityById(favorite.cityId)} places={favorite.properties}/>
+                  <FavoriteLocation key={favorite.cityName} city={getCityByName(favorite.cityName)} places={favorite.properties}/>
                 ))
               }
             </ul>

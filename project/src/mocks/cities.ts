@@ -1,8 +1,7 @@
-import type { CityItem } from '../types/City';
+import type { City } from '../types/City';
 
-export const cities : CityItem = {
-  'Paris': {
-    id: 1,
+export const cities : City[] = [
+  {
     name: 'Paris',
     location: {
       latitude: 48.864716,
@@ -10,8 +9,7 @@ export const cities : CityItem = {
       zoom: 10
     }
   },
-  'Cologne': {
-    id: 2,
+  {
     name: 'Cologne',
     location: {
       latitude: 50.935173,
@@ -19,8 +17,7 @@ export const cities : CityItem = {
       zoom: 10
     }
   },
-  'Brussels': {
-    id: 3,
+  {
     name: 'Brussels',
     location: {
       latitude: 50.850346,
@@ -28,8 +25,7 @@ export const cities : CityItem = {
       zoom: 10
     }
   },
-  'Amsterdam': {
-    id: 4,
+  {
     name: 'Amsterdam',
     location: {
       latitude: 52.377956,
@@ -37,8 +33,7 @@ export const cities : CityItem = {
       zoom: 10
     }
   },
-  'Hamburg': {
-    id: 5,
+  {
     name: 'Hamburg',
     location: {
       latitude: 53.551086,
@@ -46,8 +41,7 @@ export const cities : CityItem = {
       zoom: 10
     }
   },
-  'Dusseldorf': {
-    id: 6,
+  {
     name: 'Dusseldorf',
     location: {
       latitude: 51.233334,
@@ -55,4 +49,4 @@ export const cities : CityItem = {
       zoom: 10
     }
   }
-};
+];

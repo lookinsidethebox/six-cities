@@ -3,7 +3,8 @@ import { City } from '../../types/City';
 import type { Offers } from '../../types/Property';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changeCity, updateOffers } from '../../store/action';
+import { changeCity } from '../../store/action';
+import { fetchOffersAction } from '../../store/api-actions';
 
 type FavoriteLocationProps = {
   city: City;
@@ -15,7 +16,7 @@ function FavoriteLocation(props: FavoriteLocationProps) : JSX.Element {
 
   const onCityClick = (city: City) => {
     dispatch(changeCity(city));
-    dispatch(updateOffers());
+    dispatch(fetchOffersAction());
   };
 
   return (
@@ -33,7 +34,7 @@ function FavoriteLocation(props: FavoriteLocationProps) : JSX.Element {
       <div className="favorites__places">
         {
           props.places.map((place) => (
-            <FavoritePlace key={place.name} place={place} />
+            <FavoritePlace key={place.title} place={place} />
           ))
         }
       </div>

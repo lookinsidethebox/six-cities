@@ -26,7 +26,7 @@ function PropertyScreen({offers}: PropertyScreenProps) : JSX.Element {
 
   return (
     <main className="page__main page__main--property">
-      <PropertyItem property={offer} showReviews offersNearby={offersNearby} />
+      <PropertyItem property={offer} offersNearby={offersNearby} />
     </main>
   );
 }

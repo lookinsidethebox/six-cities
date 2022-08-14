@@ -7,5 +7,5 @@ const Action = {
 };
 
 export const changeCity = createAction(Action.CHANGE_CITY, (value) => ({payload: value}));
-export const updateOffers = createAction(Action.UPDATE_OFFERS);
+export const updateOffers = createAction(Action.UPDATE_OFFERS, (value) => ({payload: value}));
 export const setSortType = createAction(Action.SET_SORT_TYPE, (value) => ({payload: value}));

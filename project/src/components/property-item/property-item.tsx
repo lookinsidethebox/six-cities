@@ -1,13 +1,13 @@
 import React from 'react';
-import Review from '../review/review';
+//import Review from '../review/review';
 import { PropertyType, Offers } from '../../types/Property';
 import MainCard from '../../components/main-card/main-card';
 import CityMap from '../../components/map/map';
-import { getCityById } from '../../utils';
+import { getCityByName } from '../../utils';
 
 type PropertyItemProps = {
   property: PropertyType;
-  showReviews: boolean;
+  //showReviews: boolean;
   offersNearby: Offers;
 }
 
@@ -18,7 +18,7 @@ function PropertyItem(props: PropertyItemProps) : JSX.Element {
         <div className="property__gallery-container container">
           <div className="property__gallery">
             {
-              props.property.imgUrls.map((url) => (
+              props.property.images.map((url) => (
                 <div className="property__image-wrapper" key={url}>
                   <img className="property__image" src={url} alt="Studio" />
                 </div>
@@ -36,13 +36,13 @@ function PropertyItem(props: PropertyItemProps) : JSX.Element {
             }
             <div className="property__name-wrapper">
               <h1 className="property__name">
-                {props.property.name}
+                {props.property.title}
               </h1>
               <button className="property__bookmark-button button" type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
-                <span className="visually-hidden">{props.property.isInBookmarks ? 'In' : 'To'} bookmarks</span>
+                <span className="visually-hidden">{props.property.isFavorite ? 'In' : 'To'} bookmarks</span>
               </button>
             </div>
             <div className="property__rating rating">
@@ -60,7 +60,7 @@ function PropertyItem(props: PropertyItemProps) : JSX.Element {
                 {props.property.bedrooms}
               </li>
               <li className="property__feature property__feature--adults">
-                {props.property.adults}
+                {props.property.maxAdults}
               </li>
             </ul>
             <div className="property__price">
@@ -71,7 +71,7 @@ function PropertyItem(props: PropertyItemProps) : JSX.Element {
               <h2 className="property__inside-title">What&apos;s inside</h2>
               <ul className="property__inside-list">
                 {
-                  props.property.propertyInside.map((item) => (
+                  props.property.goods.map((item) => (
                     <li className="property__inside-item" key={item}>
                       {item}
                     </li>
@@ -83,33 +83,27 @@ function PropertyItem(props: PropertyItemProps) : JSX.Element {
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src={props.property.hostAvatarUrl} width="74" height="74" alt="Host avatar" />
+                  <img className="property__avatar user__avatar" src={props.property.host.avatarUrl} width="74" height="74" alt="Host avatar" />
                 </div>
                 <span className="property__user-name">
-                  {props.property.hostName}
+                  {props.property.host.name}
                 </span>
                 <span className="property__user-status">
-                  {props.property.hostStatus}
+                  {props.property.host.isPro}
                 </span>
               </div>
               <div className="property__description">
-                {
-                  props.property.description.map((desc) => (
-                    <p className="property__text" key={desc}>
-                      {desc}
-                    </p>
-                  ))
-                }
+                { props.property.description }
               </div>
             </div>
-            {
+            {/* {
               props.showReviews ? <Review reviews={props.property.reviews} /> : ''
-            }
+            } */}
           </div>
         </div>
         <section style={{ width: '100%', marginBottom: '30px' }} >
           <CityMap
-            city={getCityById(props.property.cityId)}
+            city={getCityByName(props.property.city.name)}
             offers={props.offersNearby}
             height={400}
           />
