@@ -1,32 +1,32 @@
 import { useRef, useEffect } from 'react';
 import { Icon, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import useMap from './useMap';
 import type { PropertyType, Offers } from '../../types/Property';
 import type { City } from '../../types/City';
-import useMap from './useMap';
 
-type CityMapProps = {
+export type MapProps = {
   offers: Offers,
   selectedOffer?: PropertyType | undefined,
   city: City,
   height: number
 }
 
-function CityMap(props: CityMapProps) : JSX.Element {
+const defaultCustomIcon = new Icon({
+  iconUrl: 'img/pin.svg',
+  iconSize: [20, 30],
+  iconAnchor: [20, 30]
+});
+
+const currentCustomIcon = new Icon({
+  iconUrl: 'img/pin-active.svg',
+  iconSize: [20, 30],
+  iconAnchor: [20, 30]
+});
+
+function CityMap(props: MapProps) : JSX.Element {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, props.city);
-
-  const defaultCustomIcon = new Icon({
-    iconUrl: 'img/pin.svg',
-    iconSize: [20, 30],
-    iconAnchor: [20, 30]
-  });
-
-  const currentCustomIcon = new Icon({
-    iconUrl: 'img/pin-active.svg',
-    iconSize: [20, 30],
-    iconAnchor: [20, 30]
-  });
+  const map = useMap(mapRef, props.city.location);
 
   useEffect(() => {
     if (map) {
@@ -36,9 +36,7 @@ function CityMap(props: CityMapProps) : JSX.Element {
           lng: offer.location.longitude
         });
 
-        marker
-          .setIcon(defaultCustomIcon)
-          .addTo(map);
+        map.setView([props.city.location.latitude, props.city.location.longitude], props.city.location.zoom);
 
         marker
           .setIcon(
@@ -49,7 +47,7 @@ function CityMap(props: CityMapProps) : JSX.Element {
           .addTo(map);
       });
     }
-  }, [map, props.offers, props.selectedOffer]);
+  }, [map, props.offers, props.selectedOffer, props.city]);
 
   return (
     <div
