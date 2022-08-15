@@ -1,27 +1,25 @@
-import React from 'react';
+
 import type { PropertyType } from '../../types/Property';
 import { Link } from 'react-router-dom';
 
 type MainCardProps = {
   card: PropertyType;
   isNearby: boolean;
+  onMouseOver?: () => void;
 }
 
 function MainCard(props: MainCardProps): JSX.Element {
-  const [activeCardId, setActiveCardId] = React.useState<number>();
-
   return (
-    <article onMouseOver={() => setActiveCardId(props.card.id)} className={`${props.isNearby ? 'near-places__card' : 'cities__card'} place-card`}>
+    <article onMouseOver={props.onMouseOver} className={`${props.isNearby ? 'near-places__card' : 'cities__card'} place-card`}>
       {
         props.card.isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
-      <div style={{ display: 'none' }}>{activeCardId}</div>
       <div className={`${props.isNearby ? 'near-places__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}>
         <Link to={`/offer/${props.card.id}`}>
-          <img className="place-card__image" src={props.card.mainImgUrl} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={props.card.mainImgUrl} width="260" height="200" alt="Offer" />
         </Link>
       </div>
       <div className="place-card__info">
