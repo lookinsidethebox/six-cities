@@ -2,20 +2,24 @@ import { createReducer } from '@reduxjs/toolkit';
 import { changeCity, updateOffers, setSortType } from './action';
 import { getOffersByCity, getSortTypeById } from '../utils';
 import { DefaultCity, DefaultSortType } from '../const';
+import type { Offers } from '../types/Property';
 
 const initialState = {
   city: DefaultCity,
-  offers: getOffersByCity(DefaultCity.id, DefaultSortType.id),
-  sortType: DefaultSortType
+  offers: [] as Offers,
+  sortType: DefaultSortType,
+  offersLoaded: false
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
       state.city = action.payload;
+      state.offersLoaded = false;
     })
-    .addCase(updateOffers, (state) => {
-      state.offers = getOffersByCity(state.city.id, state.sortType.id);
+    .addCase(updateOffers, (state, action) => {
+      state.offers = getOffersByCity(action.payload, state.city.name, state.sortType.id);
+      state.offersLoaded = true;
     })
     .addCase(setSortType, (state, action) => {
       state.sortType = getSortTypeById(action.payload);

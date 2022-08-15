@@ -8,13 +8,17 @@ import PropertyScreen from '../../pages/property-screen/property-screen';
 import PropertyNotLoggedScreen from '../../pages/property-not-logged-screen/property-not-logged-screen';
 import PrivateRoute from '../private-route/private-route';
 import PrivateRouteWithPublic from '../private-route/private-route-with-public';
-import type { PropertyType } from '../../types/Property';
+import { useAppSelector } from '../../hooks';
+import Spinner from '../spinner/spinner';
 
-type AppScreenProps = {
-  offers: PropertyType[];
-}
+function App(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  const offersLoaded = useAppSelector((state) => state.offersLoaded);
 
-function App(props: AppScreenProps): JSX.Element {
+  if (!offersLoaded) {
+    return(<Spinner />);
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -32,7 +36,7 @@ function App(props: AppScreenProps): JSX.Element {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <FavoritesScreen favorites={props.offers} />
+              <FavoritesScreen favorites={offers} />
             </PrivateRoute>
           }
         />
@@ -41,8 +45,8 @@ function App(props: AppScreenProps): JSX.Element {
           element={
             <PrivateRouteWithPublic
               authorizationStatus={AuthorizationStatus.NoAuth}
-              publicChild={<PropertyNotLoggedScreen offers={props.offers} />}
-              privateChild={<PropertyScreen offers={props.offers} />}
+              publicChild={<PropertyNotLoggedScreen offers={offers} />}
+              privateChild={<PropertyScreen offers={offers} />}
             />
           }
         />

@@ -1,7 +1,8 @@
 import { City } from '../../types/City';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changeCity, updateOffers } from '../../store/action';
+import { changeCity } from '../../store/action';
+import { fetchOffersAction } from '../../store/api-actions';
 
 type CityProps = {
   city: City,
@@ -13,13 +14,13 @@ function CityItem(props: CityProps) : JSX.Element {
 
   const onCityClick = (city: City) => {
     dispatch(changeCity(city));
-    dispatch(updateOffers());
+    dispatch(fetchOffersAction());
   };
 
   return (
-    <li className="locations__item" key={props.city.id} onClick={() => onCityClick(props.city)}>
+    <li className="locations__item" key={props.city.name} onClick={() => onCityClick(props.city)}>
       <Link
-        className={`${props.currentCity.id === props.city.id ? 'tabs__item--active' : ''} locations__item-link tabs__item`}
+        className={`${props.currentCity.name === props.city.name ? 'tabs__item--active' : ''} locations__item-link tabs__item`}
         to={`?tab=${props.city.name}`}
       >
         <span>{props.city.name}</span>
