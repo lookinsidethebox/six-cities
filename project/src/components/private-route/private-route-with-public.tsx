@@ -1,15 +1,16 @@
 import { AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks';
 
 type PrivateRouteWithPublicProps = {
-  authorizationStatus: AuthorizationStatus;
   publicChild: JSX.Element;
   privateChild: JSX.Element;
 }
 
 function PrivateRouteWithPublic(props: PrivateRouteWithPublicProps): JSX.Element {
-  const { authorizationStatus, publicChild, privateChild } = props;
+  const { publicChild, privateChild } = props;
+  const authStatus = useAppSelector((state) => state.authStatus);
 
-  return (authorizationStatus === AuthorizationStatus.Auth
+  return (authStatus === AuthorizationStatus.Auth
     ? privateChild
     : publicChild
   );

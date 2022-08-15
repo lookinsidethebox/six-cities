@@ -1,5 +1,5 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import MainScreen from '../../pages/main-screen/main-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
@@ -35,7 +35,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+            <PrivateRoute>
               <FavoritesScreen favorites={offers} />
             </PrivateRoute>
           }
@@ -44,7 +44,6 @@ function App(): JSX.Element {
           path={AppRoute.Room}
           element={
             <PrivateRouteWithPublic
-              authorizationStatus={AuthorizationStatus.NoAuth}
               publicChild={<PropertyNotLoggedScreen offers={offers} />}
               privateChild={<PropertyScreen offers={offers} />}
             />

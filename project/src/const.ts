@@ -15,7 +15,8 @@ export enum AuthorizationStatus {
 }
 
 export enum ApiRoute {
-  Offers = '/hotels'
+  Offers = '/hotels',
+  Login = '/login'
 }
 
 export const DefaultCity = cities[0];
