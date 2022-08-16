@@ -4,11 +4,10 @@ import { Map, TileLayer } from 'leaflet';
 
 function useMap(mapRef : MutableRefObject<HTMLElement | null>, location : Location) : Map | null {
   const [map, setMap] = useState<Map | null>(null);
-  let instance: Map | null = null;
 
   useEffect(() => {
-    if (mapRef.current && !map && !instance) {
-      instance = new Map(mapRef.current, {
+    if (mapRef.current && !map) {
+      const instance = new Map(mapRef.current, {
         center: {
           lat: location.latitude,
           lng: location.longitude,
