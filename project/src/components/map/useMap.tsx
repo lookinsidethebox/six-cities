@@ -1,18 +1,19 @@
-import { useEffect, useState, MutableRefObject } from 'react';
+import { useEffect, useState, MutableRefObject, useRef } from 'react';
 import type { Location } from '../../types/City';
 import { Map, TileLayer } from 'leaflet';
 
-function useMap(mapRef : MutableRefObject<HTMLElement | null>, location : Location) : Map | null {
+function useMap(mapRef : MutableRefObject<HTMLElement | null>, location : Location, zoom: number) : Map | null {
   const [map, setMap] = useState<Map | null>(null);
+  const isRenderedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (mapRef.current && !map) {
+    if (mapRef.current && !isRenderedRef.current) {
       const instance = new Map(mapRef.current, {
         center: {
           lat: location.latitude,
           lng: location.longitude,
         },
-        zoom: location.zoom,
+        zoom: zoom
       });
 
       const layer = new TileLayer(
@@ -25,8 +26,9 @@ function useMap(mapRef : MutableRefObject<HTMLElement | null>, location : Locati
 
       instance.addLayer(layer);
       setMap(instance);
+      isRenderedRef.current = true;
     }
-  }, [mapRef, map, location]);
+  }, [mapRef, map, location, zoom]);
 
   return map;
 }

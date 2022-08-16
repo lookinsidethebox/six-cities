@@ -2,13 +2,13 @@ import { useRef, useEffect } from 'react';
 import { Icon, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from './useMap';
-import type { PropertyType, Offers } from '../../types/Property';
-import type { City } from '../../types/City';
+import type { PropertyType } from '../../types/Property';
+import type { Location } from '../../types/City';
 
 export type MapProps = {
-  offers: Offers,
+  offers: PropertyType[],
   selectedOffer?: PropertyType | undefined,
-  city: City,
+  centerLocation: Location,
   height: number
 }
 
@@ -24,9 +24,11 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 30]
 });
 
+const DEFAULT_ZOOM = 13;
+
 function CityMap(props: MapProps) : JSX.Element {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, props.city.location);
+  const map = useMap(mapRef, props.centerLocation, DEFAULT_ZOOM);
 
   useEffect(() => {
     if (map) {
@@ -36,7 +38,7 @@ function CityMap(props: MapProps) : JSX.Element {
           lng: offer.location.longitude
         });
 
-        map.setView([props.city.location.latitude, props.city.location.longitude], props.city.location.zoom);
+        map.setView([props.centerLocation.latitude, props.centerLocation.longitude], DEFAULT_ZOOM);
 
         marker
           .setIcon(
@@ -47,7 +49,7 @@ function CityMap(props: MapProps) : JSX.Element {
           .addTo(map);
       });
     }
-  }, [map, props.offers, props.selectedOffer, props.city]);
+  }, [map, props.offers, props.selectedOffer, props.centerLocation]);
 
   return (
     <div

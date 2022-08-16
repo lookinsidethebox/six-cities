@@ -5,19 +5,11 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';
-import PropertyNotLoggedScreen from '../../pages/property-not-logged-screen/property-not-logged-screen';
 import PrivateRoute from '../private-route/private-route';
-import PrivateRouteWithPublic from '../private-route/private-route-with-public';
 import { useAppSelector } from '../../hooks';
-import Spinner from '../spinner/spinner';
 
 function App(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
-  const offersLoaded = useAppSelector((state) => state.offersLoaded);
-
-  if (!offersLoaded) {
-    return(<Spinner />);
-  }
 
   return (
     <BrowserRouter>
@@ -43,10 +35,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.Room}
           element={
-            <PrivateRouteWithPublic
-              publicChild={<PropertyNotLoggedScreen offers={offers} />}
-              privateChild={<PropertyScreen offers={offers} />}
-            />
+            <PropertyScreen />
           }
         />
         <Route

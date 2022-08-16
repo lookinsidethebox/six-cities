@@ -1,23 +1,55 @@
-import React from 'react';
+import React, { FormEvent, ChangeEvent, useRef } from 'react';
+import { Review } from '../../types/Review';
+import { useAppDispatch } from '../../hooks';
+import { sendReviewAction } from '../../store/api-actions';
+import { ReviewMinLength } from '../../const';
 
-function ReviewForm() : JSX.Element {
+type ReviewFormProps = {
+  offerId: string;
+}
+
+function ReviewForm({offerId} : ReviewFormProps) : JSX.Element {
+  const formRef = useRef<HTMLFormElement | null>(null);
+
   const [formData, setFormData] = React.useState({
     rating: 0,
     review: ''
   });
 
-  const ratingChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const ratingChangeHandle = (e: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
     setFormData({...formData, [name]: value});
   };
 
-  const reviewChangeHandle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const reviewChangeHandle = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = e.target;
     setFormData({...formData, [name]: value});
   };
+
+  const dispatch = useAppDispatch();
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (formData.rating && formData.review) {
+      const review : Review = {
+        rating: formData.rating,
+        comment: formData.review,
+        offerId: offerId
+      };
+
+      dispatch(sendReviewAction(review));
+      formRef.current?.reset();
+      setFormData({...formData, rating: 0, review: ''});
+    }
+  };
+
+  const buttonDisabled = () => (
+    formData.rating === 0 || formData.review.length < ReviewMinLength
+  );
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form ref={formRef} onSubmit={onSubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input onChange={ratingChangeHandle} className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" />
@@ -58,9 +90,9 @@ function ReviewForm() : JSX.Element {
       <textarea onChange={reviewChangeHandle} className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{ReviewMinLength} characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={buttonDisabled()}>Submit</button>
       </div>
     </form>
   );

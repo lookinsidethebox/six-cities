@@ -1,9 +1,9 @@
 import FavoriteLocation from '../../components/favorite-location/favorite-location';
-import type { Offers } from '../../types/Property';
+import type { PropertyType } from '../../types/Property';
 import { groupByCity, getCityByName } from '../../utils';
 
 type FavoritesScreenProps = {
-  favorites: Offers;
+  favorites: PropertyType[];
 }
 
 function FavoritesScreen({favorites}: FavoritesScreenProps) : JSX.Element {
