@@ -18,6 +18,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
     if (id) {
       dispatch(fetchOfferByIdAction(id));
       dispatch(fetchOffersNearbyAction(id));
+      window.scrollTo(0, 0);
     }
   }, [id]);
 
