@@ -1,27 +1,37 @@
+import type { Location } from './City';
+
 export type PropertyType = {
+  bedrooms: number;
+  city: {
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+    name: string;
+  };
+  description: string;
+  goods: [string];
+  host: {
+    avatarUrl: string;
+    id: number;
+    isPro: boolean;
+    name: string;
+  };
   id: number;
+  images: [string];
+  isFavorite: boolean;
   isPremium: boolean;
-  isInBookmarks: boolean;
-  name: string;
-  type: string;
-  bedrooms: string;
-  adults: string;
-  hostName: string;
-  hostStatus: string;
-  hostAvatarUrl: string;
+  location: Location;
+  maxAdults: number;
+  previewImage: string;
   price: number;
   rating: number;
-  imgUrls: string[];
-  mainImgUrl: string;
-  propertyInside: string[];
-  description: string[];
-  reviews: ReviewItemType[];
-  cityId: number;
-  location: {
-    latitude: number;
-    longitude: number;
-  }
+  title: string;
+  type: string;
 };
+
+export type Offers = PropertyType[];
 
 export type ReviewItemType = {
   id: number;
@@ -33,6 +43,6 @@ export type ReviewItemType = {
 };
 
 export type GroupedProperty = {
-  cityId: number;
-  properties: PropertyType[];
+  cityName: string;
+  properties: Offers;
 }

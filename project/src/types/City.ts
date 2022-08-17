@@ -1,13 +1,10 @@
 export type City = {
-  id: number;
   name: string;
-  location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-  }
+  location: Location;
 };
 
-export type CityItem = {
-  [propertyName: string]: City
-};
+export type Location = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+}
