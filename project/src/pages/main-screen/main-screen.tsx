@@ -7,11 +7,17 @@ import Header from '../../components/header/header';
 import { cities } from '../../mocks/cities';
 import { useAppSelector } from '../../hooks';
 import { PropertyType } from '../../types/Property';
+import Spinner from '../../components/spinner/spinner';
 
 function MainScreen(): JSX.Element {
   const [activeCard, setActiveCardId] = React.useState<PropertyType>();
   const currentCity = useAppSelector((state) => state.city);
   const offersByCity = useAppSelector((state) => state.offers);
+  const offersLoaded = useAppSelector((state) => state.offersLoaded);
+
+  if (!offersLoaded) {
+    return(<Spinner />);
+  }
 
   if (offersByCity && offersByCity.length > 0) {
     return (
@@ -41,7 +47,7 @@ function MainScreen(): JSX.Element {
               <div className="cities__right-section">
                 <section style={{ width: '100%' }} >
                   <CityMap
-                    city={currentCity}
+                    centerLocation={currentCity.location}
                     offers={offersByCity}
                     selectedOffer={activeCard}
                     height={800}

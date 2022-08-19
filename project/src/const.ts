@@ -16,8 +16,12 @@ export enum AuthorizationStatus {
 
 export enum ApiRoute {
   Offers = '/hotels',
-  Login = '/login'
+  Offer = '/hotels',
+  Login = '/login',
+  Reviews = '/comments',
+  Nearby = '/nearby'
 }
 
 export const DefaultCity = cities[0];
 export const DefaultSortType = sortTypes[0];
+export const ReviewMinLength = 50;

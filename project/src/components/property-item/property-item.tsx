@@ -1,24 +1,46 @@
-import React from 'react';
-//import Review from '../review/review';
-import { PropertyType, Offers } from '../../types/Property';
+import React, { useEffect } from 'react';
+import Reviews from '../reviews/reviews';
 import MainCard from '../../components/main-card/main-card';
 import CityMap from '../../components/map/map';
-import { getCityByName } from '../../utils';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchOfferByIdAction, fetchOffersNearbyAction } from '../../store/api-actions';
+import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
+import Spinner from '../spinner/spinner';
 
 type PropertyItemProps = {
-  property: PropertyType;
-  //showReviews: boolean;
-  offersNearby: Offers;
+  id: string;
 }
 
-function PropertyItem(props: PropertyItemProps) : JSX.Element {
+function PropertyItem({id}: PropertyItemProps) : JSX.Element {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferByIdAction(id));
+      dispatch(fetchOffersNearbyAction(id));
+      window.scrollTo(0, 0);
+    }
+  }, [id]);
+
+  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const offersNearby = useAppSelector((state) => state.offersNearby);
+  const currentOfferLoaded = useAppSelector((state) => state.currentOfferLoaded);
+
+  if (!currentOfferLoaded) {
+    return(<Spinner />);
+  } else if (currentOffer === null) {
+    return(<NotFoundScreen />);
+  }
+
+  const offersForMap = [ ...offersNearby, currentOffer ];
+
   return (
     <React.Fragment>
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
             {
-              props.property.images.map((url) => (
+              currentOffer.images.map((url) => (
                 <div className="property__image-wrapper" key={url}>
                   <img className="property__image" src={url} alt="Studio" />
                 </div>
@@ -29,49 +51,49 @@ function PropertyItem(props: PropertyItemProps) : JSX.Element {
         <div className="property__container container">
           <div className="property__wrapper">
             {
-              props.property.isPremium &&
+              currentOffer.isPremium &&
               <div className="property__mark">
                 <span>Premium</span>
               </div>
             }
             <div className="property__name-wrapper">
               <h1 className="property__name">
-                {props.property.title}
+                {currentOffer.title}
               </h1>
               <button className="property__bookmark-button button" type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
-                <span className="visually-hidden">{props.property.isFavorite ? 'In' : 'To'} bookmarks</span>
+                <span className="visually-hidden">{currentOffer.isFavorite ? 'In' : 'To'} bookmarks</span>
               </button>
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{ width: '80%' }}></span>
+                <span style={{ width: currentOffer.rating * 30 }}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="property__rating-value rating__value">{props.property.rating}</span>
+              <span className="property__rating-value rating__value">{currentOffer.rating}</span>
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
-                {props.property.type}
+                {currentOffer.type}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                {props.property.bedrooms}
+                {currentOffer.bedrooms}
               </li>
               <li className="property__feature property__feature--adults">
-                {props.property.maxAdults}
+                {currentOffer.maxAdults}
               </li>
             </ul>
             <div className="property__price">
-              <b className="property__price-value">&euro;{props.property.price}</b>
+              <b className="property__price-value">&euro;{currentOffer.price}</b>
               <span className="property__price-text">&nbsp;night</span>
             </div>
             <div className="property__inside">
               <h2 className="property__inside-title">What&apos;s inside</h2>
               <ul className="property__inside-list">
                 {
-                  props.property.goods.map((item) => (
+                  currentOffer.goods.map((item) => (
                     <li className="property__inside-item" key={item}>
                       {item}
                     </li>
@@ -83,44 +105,46 @@ function PropertyItem(props: PropertyItemProps) : JSX.Element {
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src={props.property.host.avatarUrl} width="74" height="74" alt="Host avatar" />
+                  <img className="property__avatar user__avatar" src={ currentOffer.host.avatarUrl } width="74" height="74" alt="Host avatar" />
                 </div>
                 <span className="property__user-name">
-                  {props.property.host.name}
+                  { currentOffer.host.name }
                 </span>
                 <span className="property__user-status">
-                  {props.property.host.isPro}
+                  { currentOffer.host.isPro }
                 </span>
               </div>
               <div className="property__description">
-                { props.property.description }
+                { currentOffer.description }
               </div>
             </div>
-            {/* {
-              props.showReviews ? <Review reviews={props.property.reviews} /> : ''
-            } */}
+            <Reviews offerId={id} />
           </div>
         </div>
-        <section style={{ width: '100%', marginBottom: '30px' }} >
+        <section style={{ width: '50%', margin: '0 auto 30px auto' }} >
           <CityMap
-            city={getCityByName(props.property.city.name)}
-            offers={props.offersNearby}
+            centerLocation={currentOffer.location}
+            offers={offersForMap}
+            selectedOffer={currentOffer}
             height={400}
           />
         </section>
       </section>
-      <div className="container">
-        <section className="near-places places">
-          <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            {
-              props.offersNearby.map((card) => (
-                <MainCard key={card.id} card={card} isNearby />
-              ))
-            }
-          </div>
-        </section>
-      </div>
+      {
+        offersNearby &&
+        <div className="container">
+          <section className="near-places places">
+            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+            <div className="near-places__list places__list">
+              {
+                offersNearby.map((card) => (
+                  <MainCard key={card.id} card={card} isNearby />
+                ))
+              }
+            </div>
+          </section>
+        </div>
+      }
     </React.Fragment>
   );
 }
