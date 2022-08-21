@@ -7,6 +7,8 @@ import { fetchOfferByIdAction, fetchOffersNearbyAction } from '../../store/api-a
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
 
+const STAR_WIDTH = 30;
+
 type PropertyItemProps = {
   id: string;
 }
@@ -28,7 +30,9 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
 
   if (!currentOfferLoaded) {
     return(<Spinner />);
-  } else if (currentOffer === null) {
+  }
+
+  if (currentOffer === null) {
     return(<NotFoundScreen />);
   }
 
@@ -69,7 +73,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{ width: currentOffer.rating * 30 }}></span>
+                <span style={{ width: currentOffer.rating * STAR_WIDTH }}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="property__rating-value rating__value">{currentOffer.rating}</span>

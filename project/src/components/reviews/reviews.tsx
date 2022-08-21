@@ -4,6 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchReviewsAction } from '../../store/api-actions';
 import { AuthorizationStatus } from '../../const';
 
+const STAR_WIDTH = 20;
+
 type ReviewProps = {
   offerId: string;
 };
@@ -13,7 +15,7 @@ function Reviews({offerId}: ReviewProps) : JSX.Element {
 
   useEffect(()=> {
     dispatch(fetchReviewsAction(offerId));
-  }, []);
+  }, [offerId]);
 
   const reviews = useAppSelector((state) => state.reviews);
   const authStatus = useAppSelector((state) => state.authStatus);
@@ -40,7 +42,7 @@ function Reviews({offerId}: ReviewProps) : JSX.Element {
               <div className="reviews__info">
                 <div className="reviews__rating rating">
                   <div className="reviews__stars rating__stars">
-                    <span style={{ width: review.rating * 20 }}></span>
+                    <span style={{ width: review.rating * STAR_WIDTH }}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>

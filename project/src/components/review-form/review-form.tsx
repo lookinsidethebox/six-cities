@@ -44,9 +44,7 @@ function ReviewForm({offerId} : ReviewFormProps) : JSX.Element {
     }
   };
 
-  const buttonDisabled = () => (
-    formData.rating === 0 || formData.review.length < ReviewMinLength
-  );
+  const isButtonDisabled = formData.rating === 0 || formData.review.length < ReviewMinLength;
 
   return (
     <form ref={formRef} onSubmit={onSubmit} className="reviews__form form" action="#" method="post">
@@ -92,7 +90,7 @@ function ReviewForm({offerId} : ReviewFormProps) : JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{ReviewMinLength} characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={buttonDisabled()}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isButtonDisabled}>Submit</button>
       </div>
     </form>
   );
