@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import Reviews from '../reviews/reviews';
-import MainCard from '../../components/main-card/main-card';
 import CityMap from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOfferByIdAction, fetchOffersNearbyAction } from '../../store/api-actions';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
+import OffersNearby from '../offersNearby/offersNearby';
+import { getCurrentOffer, currentOfferLoaded, getOffersNearby } from '../../store/offer-process/selectors';
 
 const STAR_WIDTH = 30;
 
@@ -24,11 +25,11 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
     }
   }, [id]);
 
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const offersNearby = useAppSelector((state) => state.offersNearby);
-  const currentOfferLoaded = useAppSelector((state) => state.currentOfferLoaded);
+  const currentOffer = useAppSelector(getCurrentOffer);
+  const isCurrentOfferLoaded = useAppSelector(currentOfferLoaded);
+  const offersNearby = useAppSelector(getOffersNearby);
 
-  if (!currentOfferLoaded) {
+  if (!isCurrentOfferLoaded) {
     return(<Spinner />);
   }
 
@@ -135,19 +136,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
         </section>
       </section>
       {
-        offersNearby &&
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {
-                offersNearby.map((card) => (
-                  <MainCard key={card.id} card={card} isNearby />
-                ))
-              }
-            </div>
-          </section>
-        </div>
+        offersNearby && <OffersNearby offers={offersNearby} />
       }
     </React.Fragment>
   );

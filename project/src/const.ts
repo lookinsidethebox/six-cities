@@ -18,6 +18,7 @@ export enum ApiRoute {
   Offers = '/hotels',
   Offer = '/hotels',
   Login = '/login',
+  Logout = '/logout',
   Reviews = '/comments',
   Nearby = '/nearby'
 }
@@ -25,3 +26,9 @@ export enum ApiRoute {
 export const DefaultCity = cities[0];
 export const DefaultSortType = sortTypes[0];
 export const ReviewMinLength = 50;
+
+export enum NameSpace {
+  User = 'USER',
+  Offer = 'OFFER',
+  Data = 'DATA'
+}

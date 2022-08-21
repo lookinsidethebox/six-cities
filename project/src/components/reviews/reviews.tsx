@@ -3,6 +3,8 @@ import ReviewForm from '../review-form/review-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchReviewsAction } from '../../store/api-actions';
 import { AuthorizationStatus } from '../../const';
+import { getAuthStatus } from '../../store/user-process/selectors';
+import { getReviews } from '../../store/data-process/selectors';
 
 const STAR_WIDTH = 20;
 
@@ -17,8 +19,8 @@ function Reviews({offerId}: ReviewProps) : JSX.Element {
     dispatch(fetchReviewsAction(offerId));
   }, [offerId]);
 
-  const reviews = useAppSelector((state) => state.reviews);
-  const authStatus = useAppSelector((state) => state.authStatus);
+  const reviews = useAppSelector(getReviews);
+  const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
 
   return(

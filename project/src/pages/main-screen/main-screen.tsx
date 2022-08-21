@@ -8,14 +8,23 @@ import { cities } from '../../mocks/cities';
 import { useAppSelector } from '../../hooks';
 import { PropertyType } from '../../types/Property';
 import Spinner from '../../components/spinner/spinner';
+import { store } from '../../store';
+import { fetchOffersAction } from '../../store/api-actions';
+import { getOffers, offersLoaded } from '../../store/offer-process/selectors';
+import { getCity, getSortType } from '../../store/data-process/selectors';
+import { getOffersByCity } from '../../utils';
+
+store.dispatch(fetchOffersAction());
 
 function MainScreen(): JSX.Element {
   const [activeCard, setActiveCardId] = React.useState<PropertyType>();
-  const currentCity = useAppSelector((state) => state.city);
-  const offersByCity = useAppSelector((state) => state.offers);
-  const offersLoaded = useAppSelector((state) => state.offersLoaded);
+  const currentCity = useAppSelector(getCity);
+  const sortType = useAppSelector(getSortType);
+  const offers = useAppSelector(getOffers);
+  const offersByCity = getOffersByCity(offers, currentCity.name, sortType.id);
+  const isOffersLoaded = useAppSelector(offersLoaded);
 
-  if (!offersLoaded) {
+  if (!isOffersLoaded) {
     return(<Spinner />);
   }
 
