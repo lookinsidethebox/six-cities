@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { PropertyType } from '../../types/Property';
 import { fetchOffersAction, fetchOfferByIdAction, fetchOffersNearbyAction } from '../api-actions';
+import { updateOfferById } from '../../utils';
 
 type OfferProcess = {
   offers: PropertyType[],
@@ -22,7 +23,17 @@ const initialState: OfferProcess = {
 export const offerProcess = createSlice({
   name: NameSpace.Offer,
   initialState,
-  reducers: {},
+  reducers: {
+    updateBookmarkInOffers: (state, action) => {
+      state.offers = updateOfferById(state.offers, action.payload);
+    },
+    updateBookmarkInCurrentOffer: (state, action) => {
+      state.currentOffer = action.payload;
+    },
+    updateBookmarkInOffersNearby: (state, action) => {
+      state.offersNearby = updateOfferById(state.offersNearby, action.payload);
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
@@ -44,3 +55,5 @@ export const offerProcess = createSlice({
       });
   }
 });
+
+export const { updateBookmarkInOffers, updateBookmarkInCurrentOffer, updateBookmarkInOffersNearby } = offerProcess.actions;

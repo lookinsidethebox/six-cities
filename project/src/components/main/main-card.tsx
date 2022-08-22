@@ -1,6 +1,13 @@
-
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import type { PropertyType } from '../../types/Property';
-import { Link } from 'react-router-dom';
+import type { FavoriteData } from '../../types/Favorite';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { toggleIsFavoriteStateAction, fetchFavoriteOffersAction } from '../../store/api-actions';
+import { FavoriteStatus, AppRoute } from '../../const';
+import { getOfferInBookmark } from '../../store/favorite-process/selectors';
+import { updateBookmarkInOffers, updateBookmarkInOffersNearby } from '../../store/offer-process/offer-process';
+import { useIsAuthorized } from '../../hooks';
 
 const STAR_WIDTH = 15;
 
@@ -11,6 +18,36 @@ type MainCardProps = {
 }
 
 function MainCard(props: MainCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const favoriteData : FavoriteData = {
+    offerId: props.card.id.toString(),
+    status: props.card.isFavorite ? FavoriteStatus.Remove : FavoriteStatus.Add
+  };
+
+  const offerInBookmark = useAppSelector(getOfferInBookmark);
+
+  useEffect((): void => {
+    if (offerInBookmark?.id === props.card.id) {
+      if (props.isNearby) {
+        dispatch(updateBookmarkInOffersNearby(offerInBookmark));
+      } else {
+        dispatch(updateBookmarkInOffers(offerInBookmark));
+      }
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [offerInBookmark]);
+
+  const isAuthorized = useIsAuthorized();
+  const navigate = useNavigate();
+
+  function onBookmarkButtonClick() {
+    if (isAuthorized) {
+      dispatch(toggleIsFavoriteStateAction(favoriteData));
+    } else {
+      navigate(AppRoute.Login);
+    }
+  }
 
   return (
     <article onMouseOver={props.onMouseOver} className={`${props.isNearby ? 'near-places__card' : 'cities__card'} place-card`}>
@@ -31,7 +68,11 @@ function MainCard(props: MainCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{props.card.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${props.card.isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
+          <button
+            className={`place-card__bookmark-button ${props.card.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
+            type="button"
+            onClick={() => onBookmarkButtonClick() }
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

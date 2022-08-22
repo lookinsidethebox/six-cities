@@ -20,7 +20,8 @@ export enum ApiRoute {
   Login = '/login',
   Logout = '/logout',
   Reviews = '/comments',
-  Nearby = '/nearby'
+  Nearby = '/nearby',
+  Favorite = '/favorite'
 }
 
 export const DefaultCity = cities[0];
@@ -30,5 +31,12 @@ export const ReviewMinLength = 50;
 export enum NameSpace {
   User = 'USER',
   Offer = 'OFFER',
-  Data = 'DATA'
+  Data = 'DATA',
+  Favorite = 'FAVORITE'
 }
+
+export enum FavoriteStatus {
+  Remove = '0',
+  Add = '1'
+}
+

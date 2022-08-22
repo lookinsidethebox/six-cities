@@ -1,5 +1,4 @@
 import type { PropertyType, GroupedProperty } from '../types/Property';
-import type { City } from '../types/City';
 import { sortTypes } from '../mocks/sortTypes';
 import { cities } from '../mocks/cities';
 import { DefaultCity } from '../const';
@@ -38,10 +37,25 @@ export function groupByCity(list: PropertyType[]) {
   }, []);
 }
 
-export function getCityByName(name: string | undefined) : City {
+export function getCityByName(name: string | undefined) {
   if (name === undefined) {
     return DefaultCity;
   }
 
   return cities.filter((city) => city.name === name)[0] ?? DefaultCity;
+}
+
+export function updateOfferById(offers: PropertyType[], newOffer: PropertyType | null) {
+  if (newOffer === null) {
+    return offers;
+  }
+
+  const index = offers.findIndex((offer) => offer.id === newOffer.id);
+
+  if (index < 0) {
+    return offers;
+  }
+
+  offers[index] = newOffer;
+  return offers;
 }
