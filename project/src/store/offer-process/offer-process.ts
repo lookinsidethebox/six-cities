@@ -20,7 +20,7 @@ const initialState: OfferProcess = {
 };
 
 export const offerProcess = createSlice({
-  name: NameSpace.User,
+  name: NameSpace.Offer,
   initialState,
   reducers: {},
   extraReducers(builder) {

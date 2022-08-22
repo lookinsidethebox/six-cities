@@ -18,7 +18,7 @@ const initialState: DataProcess = {
 };
 
 export const dataProcess = createSlice({
-  name: NameSpace.User,
+  name: NameSpace.Data,
   initialState,
   reducers: {
     changeCity: (state, action) => {
