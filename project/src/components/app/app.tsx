@@ -7,10 +7,10 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
-import { getOffers } from '../../store/offer-process/selectors';
+import { getOffersByCityAndSort } from '../../store/offer-process/selectors';
 
 function App(): JSX.Element {
-  const offers = useAppSelector(getOffers);
+  const offers = useAppSelector(getOffersByCityAndSort);
 
   return (
     <BrowserRouter>

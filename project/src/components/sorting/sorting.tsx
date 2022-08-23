@@ -1,8 +1,9 @@
+import React from 'react';
 import { sortTypes } from '../../mocks/sortTypes';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { changeSortType } from '../../store/data-process/data-process';
-import React from 'react';
 import { getSortType } from '../../store/data-process/selectors';
+import { SortType } from '../../types/SortType';
 
 const DEFAULT_TAB_INDEX = 0;
 
@@ -10,6 +11,10 @@ function Sorting() : JSX.Element {
   const currentSortType = useAppSelector(getSortType);
   const [menuIsVisible, toggleMenu] = React.useState<boolean>();
   const dispatch = useAppDispatch();
+
+  function changeCurrentSortType(sortType: SortType) {
+    dispatch(changeSortType(sortType));
+  }
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -29,7 +34,7 @@ function Sorting() : JSX.Element {
                 key={sortType.id}
                 className={`places__option ${currentSortType.id === sortType.id ? 'places__option--active' : ''}`}
                 tabIndex={DEFAULT_TAB_INDEX}
-                onClick={() => dispatch(changeSortType(sortType))}
+                onClick={() => changeCurrentSortType(sortType)}
               >
                 {sortType.name}
               </li>

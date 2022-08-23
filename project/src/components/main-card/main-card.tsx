@@ -1,4 +1,3 @@
-
 import type { PropertyType } from '../../types/Property';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +10,6 @@ type MainCardProps = {
 }
 
 function MainCard(props: MainCardProps): JSX.Element {
-
   return (
     <article onMouseOver={props.onMouseOver} className={`${props.isNearby ? 'near-places__card' : 'cities__card'} place-card`}>
       {

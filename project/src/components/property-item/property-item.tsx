@@ -6,7 +6,7 @@ import { fetchOfferByIdAction, fetchOffersNearbyAction } from '../../store/api-a
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
 import OffersNearby from '../offersNearby/offersNearby';
-import { getCurrentOffer, currentOfferLoaded, getOffersNearby } from '../../store/offer-process/selectors';
+import { getCurrentOffer, getCurrentOfferLoaded, getOffersNearby } from '../../store/offer-process/selectors';
 
 const STAR_WIDTH = 30;
 
@@ -26,7 +26,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
   }, [id]);
 
   const currentOffer = useAppSelector(getCurrentOffer);
-  const isCurrentOfferLoaded = useAppSelector(currentOfferLoaded);
+  const isCurrentOfferLoaded = useAppSelector(getCurrentOfferLoaded);
   const offersNearby = useAppSelector(getOffersNearby);
 
   if (!isCurrentOfferLoaded) {

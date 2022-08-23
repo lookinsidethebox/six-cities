@@ -11,6 +11,10 @@ function Header() : JSX.Element {
   const isAuth = authStatus === AuthorizationStatus.Auth;
   const dispatch = useAppDispatch();
 
+  function logout() {
+    dispatch(logoutAction());
+  }
+
   return (
     <header className="header">
       <div className="container">
@@ -33,7 +37,7 @@ function Header() : JSX.Element {
                     </Link>
                   </li>
                   <li className="header__nav-item">
-                    <Link className="header__nav-link" to="/" onClick={() => dispatch(logoutAction())}>
+                    <Link className="header__nav-link" to="/" onClick={() => logout()}>
                       <span className="header__signout">Sign out</span>
                     </Link>
                   </li>

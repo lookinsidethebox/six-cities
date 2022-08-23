@@ -13,9 +13,9 @@ type FavoriteLocationProps = {
 function FavoriteLocation(props: FavoriteLocationProps) : JSX.Element {
   const dispatch = useAppDispatch();
 
-  const onCityClick = (city: City) => {
+  function onCityClick(city: City) {
     dispatch(changeCity(city));
-  };
+  }
 
   return (
     <li className="favorites__locations-items">
