@@ -3,6 +3,10 @@ import ReviewForm from '../review-form/review-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchReviewsAction } from '../../store/api-actions';
 import { AuthorizationStatus } from '../../const';
+import { getAuthStatus } from '../../store/user-process/selectors';
+import { getReviews } from '../../store/data-process/selectors';
+
+const STAR_WIDTH = 20;
 
 type ReviewProps = {
   offerId: string;
@@ -13,10 +17,10 @@ function Reviews({offerId}: ReviewProps) : JSX.Element {
 
   useEffect(()=> {
     dispatch(fetchReviewsAction(offerId));
-  }, []);
+  }, [offerId]);
 
-  const reviews = useAppSelector((state) => state.reviews);
-  const authStatus = useAppSelector((state) => state.authStatus);
+  const reviews = useAppSelector(getReviews);
+  const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
 
   return(
@@ -40,7 +44,7 @@ function Reviews({offerId}: ReviewProps) : JSX.Element {
               <div className="reviews__info">
                 <div className="reviews__rating rating">
                   <div className="reviews__stars rating__stars">
-                    <span style={{ width: review.rating * 20 }}></span>
+                    <span style={{ width: review.rating * STAR_WIDTH }}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>

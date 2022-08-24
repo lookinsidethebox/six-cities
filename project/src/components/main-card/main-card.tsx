@@ -1,6 +1,7 @@
-
 import type { PropertyType } from '../../types/Property';
 import { Link } from 'react-router-dom';
+
+const STAR_WIDTH = 15;
 
 type MainCardProps = {
   card: PropertyType;
@@ -9,7 +10,6 @@ type MainCardProps = {
 }
 
 function MainCard(props: MainCardProps): JSX.Element {
-
   return (
     <article onMouseOver={props.onMouseOver} className={`${props.isNearby ? 'near-places__card' : 'cities__card'} place-card`}>
       {
@@ -38,7 +38,7 @@ function MainCard(props: MainCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: props.card.rating * 15 }}></span>
+            <span style={{ width: props.card.rating * STAR_WIDTH }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

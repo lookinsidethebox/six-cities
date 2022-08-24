@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import Reviews from '../reviews/reviews';
-import MainCard from '../../components/main-card/main-card';
 import CityMap from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOfferByIdAction, fetchOffersNearbyAction } from '../../store/api-actions';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
+import OffersNearby from '../offersNearby/offersNearby';
+import { getCurrentOffer, getCurrentOfferLoaded, getOffersNearby } from '../../store/offer-process/selectors';
+
+const STAR_WIDTH = 30;
 
 type PropertyItemProps = {
   id: string;
@@ -22,13 +25,15 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
     }
   }, [id]);
 
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const offersNearby = useAppSelector((state) => state.offersNearby);
-  const currentOfferLoaded = useAppSelector((state) => state.currentOfferLoaded);
+  const currentOffer = useAppSelector(getCurrentOffer);
+  const isCurrentOfferLoaded = useAppSelector(getCurrentOfferLoaded);
+  const offersNearby = useAppSelector(getOffersNearby);
 
-  if (!currentOfferLoaded) {
+  if (!isCurrentOfferLoaded) {
     return(<Spinner />);
-  } else if (currentOffer === null) {
+  }
+
+  if (currentOffer === null) {
     return(<NotFoundScreen />);
   }
 
@@ -69,7 +74,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{ width: currentOffer.rating * 30 }}></span>
+                <span style={{ width: currentOffer.rating * STAR_WIDTH }}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="property__rating-value rating__value">{currentOffer.rating}</span>
@@ -131,19 +136,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
         </section>
       </section>
       {
-        offersNearby &&
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {
-                offersNearby.map((card) => (
-                  <MainCard key={card.id} card={card} isNearby />
-                ))
-              }
-            </div>
-          </section>
-        </div>
+        offersNearby && <OffersNearby offers={offersNearby} />
       }
     </React.Fragment>
   );

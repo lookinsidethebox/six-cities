@@ -4,10 +4,12 @@ import { useAppSelector, useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { LoginData } from '../../types/Auth';
 import { AuthorizationStatus, AppRoute } from '../../const';
+import { getAuthStatus } from '../../store/user-process/selectors';
+import { getCity } from '../../store/data-process/selectors';
 
 function LoginScreen() : JSX.Element {
-  const currentCity = useAppSelector((state) => state.city);
-  const authStatus = useAppSelector((state) => state.authStatus);
+  const currentCity = useAppSelector(getCity);
+  const authStatus = useAppSelector(getAuthStatus);
   const dispatch = useAppDispatch();
   const location = useLocation();
 
