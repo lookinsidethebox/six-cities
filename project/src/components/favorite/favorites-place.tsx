@@ -27,6 +27,8 @@ function FavoritePlace({place}: FavoritePlaceProps) : JSX.Element {
     }
   }, [offerInBookmark]);
 
+  const onBookmarkClick = () => dispatch(toggleIsFavoriteStateAction(favoriteData));
+
   return (
     <article className="favorites__card place-card">
       {
@@ -49,7 +51,7 @@ function FavoritePlace({place}: FavoritePlaceProps) : JSX.Element {
           <button
             className="place-card__bookmark-button place-card__bookmark-button--active button"
             type="button"
-            onClick={() => dispatch(toggleIsFavoriteStateAction(favoriteData)) }
+            onClick={onBookmarkClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

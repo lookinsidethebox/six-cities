@@ -41,13 +41,13 @@ function MainCard(props: MainCardProps): JSX.Element {
   const isAuthorized = useIsAuthorized();
   const navigate = useNavigate();
 
-  function onBookmarkButtonClick() {
+  const onBookmarkButtonClick = () => {
     if (isAuthorized) {
       dispatch(toggleIsFavoriteStateAction(favoriteData));
     } else {
       navigate(AppRoute.Login);
     }
-  }
+  };
 
   return (
     <article onMouseOver={props.onMouseOver} className={`${props.isNearby ? 'near-places__card' : 'cities__card'} place-card`}>
@@ -71,7 +71,7 @@ function MainCard(props: MainCardProps): JSX.Element {
           <button
             className={`place-card__bookmark-button ${props.card.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
             type="button"
-            onClick={() => onBookmarkButtonClick() }
+            onClick={onBookmarkButtonClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

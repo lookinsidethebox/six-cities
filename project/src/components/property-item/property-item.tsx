@@ -60,6 +60,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
   }
 
   const offersForMap = [ ...offersNearby, currentOffer ];
+  const onBookmarkClick = () => dispatch(toggleIsFavoriteStateAction(favoriteData));
 
   return (
     <React.Fragment>
@@ -90,7 +91,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
               <button
                 className="property__bookmark-button button"
                 type="button"
-                onClick={() => dispatch(toggleIsFavoriteStateAction(favoriteData))}
+                onClick={onBookmarkClick}
               >
                 <svg style={ currentOffer.isFavorite ? { stroke: '#4481c3', fill: '#4481c3' } : {} } className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
