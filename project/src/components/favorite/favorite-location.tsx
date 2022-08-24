@@ -13,14 +13,12 @@ type FavoriteLocationProps = {
 function FavoriteLocation(props: FavoriteLocationProps) : JSX.Element {
   const dispatch = useAppDispatch();
 
-  const onCityClick = (city: City) => {
-    dispatch(changeCity(city));
-  };
+  const onCityClick = () => dispatch(changeCity(props.city));
 
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
-        <div className="locations__item" onClick={() => onCityClick(props.city)}>
+        <div className="locations__item" onClick={onCityClick}>
           <Link
             className="locations__item-link"
             to={`/?tab=${props.city.name}`}

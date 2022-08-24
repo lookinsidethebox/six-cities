@@ -11,7 +11,7 @@ import {
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
 import OffersNearby from '../offersNearby/offersNearby';
-import { getCurrentOffer, currentOfferLoaded, getOffersNearby } from '../../store/offer-process/selectors';
+import { getCurrentOffer, getCurrentOfferLoaded, getOffersNearby } from '../../store/offer-process/selectors';
 import { FavoriteStatus } from '../../const';
 import type { FavoriteData } from '../../types/Favorite';
 import { getOfferInBookmark } from '../../store/favorite-process/selectors';
@@ -35,7 +35,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
   }, [id]);
 
   const currentOffer = useAppSelector(getCurrentOffer);
-  const isCurrentOfferLoaded = useAppSelector(currentOfferLoaded);
+  const isCurrentOfferLoaded = useAppSelector(getCurrentOfferLoaded);
   const offersNearby = useAppSelector(getOffersNearby);
   const offerInBookmark = useAppSelector(getOfferInBookmark);
 

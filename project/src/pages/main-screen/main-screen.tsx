@@ -11,19 +11,16 @@ import { PropertyType } from '../../types/Property';
 import Spinner from '../../components/spinner/spinner';
 import { store } from '../../store';
 import { fetchOffersAction } from '../../store/api-actions';
-import { getOffers, offersLoaded } from '../../store/offer-process/selectors';
-import { getCity, getSortType } from '../../store/data-process/selectors';
-import { getOffersByCity } from '../../utils';
+import { getOffersByCityAndSort, getOffersLoaded } from '../../store/offer-process/selectors';
+import { getCity } from '../../store/data-process/selectors';
 
 store.dispatch(fetchOffersAction());
 
 function MainScreen(): JSX.Element {
   const [activeCard, setActiveCardId] = React.useState<PropertyType>();
   const currentCity = useAppSelector(getCity);
-  const sortType = useAppSelector(getSortType);
-  const offers = useAppSelector(getOffers);
-  const offersByCity = getOffersByCity(offers, currentCity.name, sortType.id);
-  const isOffersLoaded = useAppSelector(offersLoaded);
+  const offersByCity = useAppSelector(getOffersByCityAndSort);
+  const isOffersLoaded = useAppSelector(getOffersLoaded);
 
   if (!isOffersLoaded) {
     return(<Spinner />);
