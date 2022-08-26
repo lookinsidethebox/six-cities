@@ -6,6 +6,7 @@ import { ApiRoute } from '../const';
 import { LoginData, UserData } from '../types/Auth';
 import { saveToken, dropToken } from '../services/token';
 import { Review } from '../types/Review';
+import { FavoriteData } from '../types/Favorite';
 
 export const fetchOffersAction = createAsyncThunk<PropertyType[], undefined, {
   dispatch: AppDispatch,
@@ -102,4 +103,28 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(ApiRoute.Logout);
     dropToken();
   },
+);
+
+export const toggleIsFavoriteStateAction = createAsyncThunk<PropertyType, FavoriteData, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'offer/toggleIsFavoriteState',
+  async ({ offerId, status }, { extra: api }) => {
+    const { data } = await api.post<PropertyType>(ApiRoute.Favorite.concat('/', offerId).concat('/', status));
+    return data;
+  }
+);
+
+export const fetchFavoriteOffersAction = createAsyncThunk<PropertyType[], undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'offer/fetchFavoriteOffers',
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<PropertyType[]>(ApiRoute.Favorite);
+    return data;
+  }
 );

@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import ReviewForm from '../review-form/review-form';
+import ReviewForm from './review-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchReviewsAction } from '../../store/api-actions';
-import { AuthorizationStatus } from '../../const';
-import { getAuthStatus } from '../../store/user-process/selectors';
 import { getReviews } from '../../store/data-process/selectors';
+import { useIsAuthorized } from '../../hooks';
 
 const STAR_WIDTH = 20;
 
@@ -20,8 +19,7 @@ function Reviews({offerId}: ReviewProps) : JSX.Element {
   }, [offerId]);
 
   const reviews = useAppSelector(getReviews);
-  const authStatus = useAppSelector(getAuthStatus);
-  const isAuth = authStatus === AuthorizationStatus.Auth;
+  const isAuthorized = useIsAuthorized();
 
   return(
     <section className="property__reviews reviews">
@@ -58,7 +56,7 @@ function Reviews({offerId}: ReviewProps) : JSX.Element {
         }
       </ul>
       {
-        isAuth && <ReviewForm offerId={offerId} />
+        isAuthorized && <ReviewForm offerId={offerId} />
       }
     </section>
   );

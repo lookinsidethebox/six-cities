@@ -1,4 +1,4 @@
-import FavoritePlace from '../../components/favorite-place/favorites-place';
+import FavoritePlace from './favorites-place';
 import { City } from '../../types/City';
 import type { PropertyType } from '../../types/Property';
 import { Link } from 'react-router-dom';

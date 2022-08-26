@@ -1,15 +1,17 @@
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import { AuthorizationStatus, AppRoute } from '../../const';
-import { Link } from 'react-router-dom';
 import React from 'react';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { AppRoute } from '../../const';
+import { Link } from 'react-router-dom';
 import { logoutAction } from '../../store/api-actions';
-import { getAuthStatus, getUserData } from '../../store/user-process/selectors';
+import { getUserData } from '../../store/user-process/selectors';
+import { getFavoriteOffersCount } from '../../store/favorite-process/selectors';
+import { useIsAuthorized } from '../../hooks';
 
 function Header() : JSX.Element {
-  const authStatus = useAppSelector(getAuthStatus);
   const user = useAppSelector(getUserData);
-  const isAuth = authStatus === AuthorizationStatus.Auth;
+  const isAuthorized = useIsAuthorized();
   const dispatch = useAppDispatch();
+  const favoriteOffersCount = useAppSelector(getFavoriteOffersCount);
 
   const onLogoutClick = () => {
     dispatch(logoutAction());
@@ -27,13 +29,13 @@ function Header() : JSX.Element {
           <nav className="header__nav">
             <ul className="header__nav-list">
               {
-                isAuth &&
+                isAuthorized &&
                 <React.Fragment>
                   <li className="header__nav-item user">
-                    <Link className="header__nav-link header__nav-link--profile" to="/">
+                    <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       <span className="header__user-name user__name">{user?.email}</span>
-                      <span className="header__favorite-count">3</span>
+                      <span className="header__favorite-count">{favoriteOffersCount}</span>
                     </Link>
                   </li>
                   <li className="header__nav-item">
@@ -44,7 +46,7 @@ function Header() : JSX.Element {
                 </React.Fragment>
               }
               {
-                !isAuth &&
+                !isAuthorized &&
                 <li className="header__nav-item">
                   <Link className="header__nav-link" to={AppRoute.Login}>
                     <span className="header__signout">Sign in</span>

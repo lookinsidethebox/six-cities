@@ -2,11 +2,20 @@ import React, { useEffect } from 'react';
 import Reviews from '../reviews/reviews';
 import CityMap from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchOfferByIdAction, fetchOffersNearbyAction } from '../../store/api-actions';
+import {
+  fetchOfferByIdAction,
+  fetchOffersNearbyAction,
+  toggleIsFavoriteStateAction,
+  fetchFavoriteOffersAction
+} from '../../store/api-actions';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
 import OffersNearby from '../offersNearby/offersNearby';
 import { getCurrentOffer, getCurrentOfferLoaded, getOffersNearby } from '../../store/offer-process/selectors';
+import { FavoriteStatus } from '../../const';
+import type { FavoriteData } from '../../types/Favorite';
+import { getOfferInBookmark } from '../../store/favorite-process/selectors';
+import { updateBookmarkInCurrentOffer } from '../../store/offer-process/offer-process';
 
 const STAR_WIDTH = 30;
 
@@ -28,6 +37,19 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
   const currentOffer = useAppSelector(getCurrentOffer);
   const isCurrentOfferLoaded = useAppSelector(getCurrentOfferLoaded);
   const offersNearby = useAppSelector(getOffersNearby);
+  const offerInBookmark = useAppSelector(getOfferInBookmark);
+
+  useEffect((): void => {
+    if (offerInBookmark?.id.toString() === id) {
+      dispatch(updateBookmarkInCurrentOffer(offerInBookmark));
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [offerInBookmark]);
+
+  const favoriteData : FavoriteData = {
+    offerId: id.toString(),
+    status: currentOffer?.isFavorite ? FavoriteStatus.Remove : FavoriteStatus.Add
+  };
 
   if (!isCurrentOfferLoaded) {
     return(<Spinner />);
@@ -38,6 +60,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
   }
 
   const offersForMap = [ ...offersNearby, currentOffer ];
+  const onBookmarkClick = () => dispatch(toggleIsFavoriteStateAction(favoriteData));
 
   return (
     <React.Fragment>
@@ -65,8 +88,12 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
               <h1 className="property__name">
                 {currentOffer.title}
               </h1>
-              <button className="property__bookmark-button button" type="button">
-                <svg className="property__bookmark-icon" width="31" height="33">
+              <button
+                className="property__bookmark-button button"
+                type="button"
+                onClick={onBookmarkClick}
+              >
+                <svg style={ currentOffer.isFavorite ? { stroke: '#4481c3', fill: '#4481c3' } : {} } className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
                 <span className="visually-hidden">{currentOffer.isFavorite ? 'In' : 'To'} bookmarks</span>

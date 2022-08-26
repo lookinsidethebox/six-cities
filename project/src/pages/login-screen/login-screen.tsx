@@ -3,15 +3,15 @@ import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { LoginData } from '../../types/Auth';
-import { AuthorizationStatus, AppRoute } from '../../const';
-import { getAuthStatus } from '../../store/user-process/selectors';
+import { AppRoute } from '../../const';
 import { getCity } from '../../store/data-process/selectors';
+import { useIsAuthorized } from '../../hooks';
 
 function LoginScreen() : JSX.Element {
   const currentCity = useAppSelector(getCity);
-  const authStatus = useAppSelector(getAuthStatus);
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const isAuthorized = useIsAuthorized();
 
   const [formData, setFormData] = React.useState({
     email: '',
@@ -36,7 +36,7 @@ function LoginScreen() : JSX.Element {
     }
   };
 
-  if (location.pathname === AppRoute.Login && authStatus === AuthorizationStatus.Auth) {
+  if (location.pathname === AppRoute.Login && isAuthorized) {
     return <Navigate to={AppRoute.Main} />;
   }
 
