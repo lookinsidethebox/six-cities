@@ -6,10 +6,16 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';
 import PrivateRoute from '../private-route/private-route';
-import { useAppSelector } from '../../hooks';
+import { useIsAuthorized, useAppDispatch } from '../../hooks';
+import { fetchFavoriteOffersAction } from '../../store/api-actions';
 
 function App(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const isAuthorized = useIsAuthorized();
+  const dispatch = useAppDispatch();
+
+  if (isAuthorized) {
+    dispatch(fetchFavoriteOffersAction());
+  }
 
   return (
     <BrowserRouter>
@@ -28,7 +34,7 @@ function App(): JSX.Element {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute>
-              <FavoritesScreen favorites={offers} />
+              <FavoritesScreen />
             </PrivateRoute>
           }
         />

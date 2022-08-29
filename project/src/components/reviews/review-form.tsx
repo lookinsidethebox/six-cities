@@ -50,7 +50,7 @@ function ReviewForm({offerId} : ReviewFormProps) : JSX.Element {
     }
   };
 
-  const isButtonDisabled = formData.rating === 0 || formData.review.length < REVIEW_MIN_LENGTH;
+  const isButtonDisabled = formData.rating === 0 || formData.review.length < ReviewMinLength;
 
   return (
     <form ref={formRef} onSubmit={onSubmit} className="reviews__form form" action="#" method="post">

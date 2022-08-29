@@ -42,3 +42,4 @@ export enum FavoriteStatus {
   Remove = '0',
   Add = '1'
 }
+

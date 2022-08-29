@@ -1,6 +1,7 @@
 import React from 'react';
-import Cities from '../../components/cities/cities';
-import MainCard from '../../components/main-card/main-card';
+import Cities from '../../components/city/cities';
+import MainCard from '../../components/main/main-card';
+import MainEmpty from '../../components/main/main-empty';
 import CityMap from '../../components/map/map';
 import Sorting from '../../components/sorting/sorting';
 import Header from '../../components/header/header';
@@ -8,14 +9,20 @@ import { cities } from '../../mocks/cities';
 import { useAppSelector } from '../../hooks';
 import { PropertyType } from '../../types/Property';
 import Spinner from '../../components/spinner/spinner';
+import { store } from '../../store';
+import { fetchOffersAction } from '../../store/api-actions';
+import { getOffersByCityAndSort, getOffersLoaded } from '../../store/offer-process/selectors';
+import { getCity } from '../../store/data-process/selectors';
+
+store.dispatch(fetchOffersAction());
 
 function MainScreen(): JSX.Element {
   const [activeCard, setActiveCardId] = React.useState<PropertyType>();
-  const currentCity = useAppSelector((state) => state.city);
-  const offersByCity = useAppSelector((state) => state.offers);
-  const offersLoaded = useAppSelector((state) => state.offersLoaded);
+  const currentCity = useAppSelector(getCity);
+  const offersByCity = useAppSelector(getOffersByCityAndSort);
+  const isOffersLoaded = useAppSelector(getOffersLoaded);
 
-  if (!offersLoaded) {
+  if (!isOffersLoaded) {
     return(<Spinner />);
   }
 
@@ -66,17 +73,7 @@ function MainScreen(): JSX.Element {
       <Header />
       <main className="page__main page__main--index page__main--index-empty">
         <Cities cities={cities} currentCity={currentCity} />
-        <div className="cities">
-          <div className="cities__places-container cities__places-container--empty container">
-            <section className="cities__no-places">
-              <div className="cities__status-wrapper tabs__content">
-                <b className="cities__status">No places to stay available</b>
-                <p className="cities__status-description">We could not find any property available at the moment in {currentCity.name}</p>
-              </div>
-            </section>
-            <div className="cities__right-section"></div>
-          </div>
-        </div>
+        <MainEmpty cityName={currentCity.name}/>
       </main>
     </React.Fragment>
   );

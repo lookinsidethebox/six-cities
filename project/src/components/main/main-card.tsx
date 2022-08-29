@@ -79,7 +79,7 @@ function MainCard(props: MainCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: Math.round(props.card.rating) * STAR_WIDTH }}></span>
+            <span style={{ width: props.card.rating * STAR_WIDTH }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
