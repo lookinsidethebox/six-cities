@@ -21,7 +21,7 @@ function CityItem(props: CityProps) : JSX.Element {
     <li className="locations__item" key={props.city.name} onClick={() => onCityClick(props.city)}>
       <Link
         className={`${props.currentCity.name === props.city.name ? 'tabs__item--active' : ''} locations__item-link tabs__item`}
-        to={`?tab=${props.city.name}`}
+        to="/"
       >
         <span>{props.city.name}</span>
       </Link>

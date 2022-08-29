@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
-import ReviewForm from '../review-form/review-form';
+import ReviewForm from './review-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchReviewsAction } from '../../store/api-actions';
-import { AuthorizationStatus } from '../../const';
+import { getReviews } from '../../store/data-process/selectors';
+import { useIsAuthorized } from '../../hooks';
+
+const STAR_WIDTH = 20;
 
 type ReviewProps = {
   offerId: string;
@@ -13,11 +16,10 @@ function Reviews({offerId}: ReviewProps) : JSX.Element {
 
   useEffect(()=> {
     dispatch(fetchReviewsAction(offerId));
-  }, []);
+  }, [offerId]);
 
-  const reviews = useAppSelector((state) => state.reviews);
-  const authStatus = useAppSelector((state) => state.authStatus);
-  const isAuth = authStatus === AuthorizationStatus.Auth;
+  const reviews = useAppSelector(getReviews);
+  const isAuthorized = useIsAuthorized();
 
   return(
     <section className="property__reviews reviews">
@@ -40,21 +42,21 @@ function Reviews({offerId}: ReviewProps) : JSX.Element {
               <div className="reviews__info">
                 <div className="reviews__rating rating">
                   <div className="reviews__stars rating__stars">
-                    <span style={{ width: review.rating * 20 }}></span>
+                    <span style={{ width: Math.round(review.rating) * STAR_WIDTH }}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>
                 <p className="reviews__text">
                   { review.comment }
                 </p>
-                <time className="reviews__time" dateTime={review.date}>{ new Date(review.date).toLocaleString() }</time>
+                <time className="reviews__time" dateTime={review.date}>{ new Date(review.date).toLocaleString('default', { month: 'long', year: 'numeric' }) }</time>
               </div>
             </li>
           ))
         }
       </ul>
       {
-        isAuth && <ReviewForm offerId={offerId} />
+        isAuthorized && <ReviewForm offerId={offerId} />
       }
     </section>
   );

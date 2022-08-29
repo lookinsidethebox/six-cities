@@ -1,9 +1,8 @@
-import type { PropertyType, GroupedProperty } from '../types/Property';
-import type { City } from '../types/City';
+import type { PropertyType, GroupedProperty, ReviewItem } from '../types/Property';
 import { sortTypes } from '../mocks/sortTypes';
 import { cities } from '../mocks/cities';
-import { DefaultCity } from '../const';
-import { sortByPriceToHigh, sortByPriceToLow, sortByTopRated } from './sortUtils';
+import { DEFAULT_CITY, REVIEWS_MAX_COUNT } from '../const';
+import { sortByPriceToHigh, sortByPriceToLow, sortByTopRated, sortReviews } from './sortUtils';
 
 export const getSortTypeById = (sortTypeId: number) => sortTypes.filter((sortType) => sortType.id === sortTypeId)[0];
 
@@ -38,10 +37,34 @@ export function groupByCity(list: PropertyType[]) {
   }, []);
 }
 
-export function getCityByName(name: string | undefined) : City {
+export function getCityByName(name: string | undefined) {
   if (name === undefined) {
-    return DefaultCity;
+    return DEFAULT_CITY;
   }
 
-  return cities.filter((city) => city.name === name)[0] ?? DefaultCity;
+  return cities.filter((city) => city.name === name)[0] ?? DEFAULT_CITY;
+}
+
+export function updateOfferById(offers: PropertyType[], newOffer: PropertyType | null) {
+  if (newOffer === null) {
+    return offers;
+  }
+
+  const index = offers.findIndex((offer) => offer.id === newOffer.id);
+
+  if (index < 0) {
+    return offers;
+  }
+
+  offers[index] = newOffer;
+  return offers;
+}
+
+export function processReviews(reviews: ReviewItem[]) {
+  return reviews.sort(sortReviews).slice(0, REVIEWS_MAX_COUNT);
+}
+
+export function getRandomCity() {
+  const index = Math.round(Math.random() * 6);
+  return cities[index];
 }

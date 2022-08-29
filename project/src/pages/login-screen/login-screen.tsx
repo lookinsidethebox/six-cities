@@ -1,42 +1,58 @@
 import React, { FormEvent, ChangeEvent } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { LoginData } from '../../types/Auth';
-import { AuthorizationStatus, AppRoute } from '../../const';
+import { AppRoute } from '../../const';
+import { changeCity } from '../../store/data-process/data-process';
+import { useIsAuthorized } from '../../hooks';
+import { getRandomCity } from '../../utils';
 
 function LoginScreen() : JSX.Element {
-  const currentCity = useAppSelector((state) => state.city);
-  const authStatus = useAppSelector((state) => state.authStatus);
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const isAuthorized = useIsAuthorized();
 
   const [formData, setFormData] = React.useState({
     email: '',
     password: ''
   });
 
+  const [showError, setShowError] = React.useState(false);
+
   const fieldChangeHandle = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({...formData, [name]: value});
   };
 
+  const passwordRegex = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/; //at least one digit and one letter
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setShowError(false);
 
-    if (formData.email && formData.password) {
-      const loginData : LoginData = {
-        email: formData.email,
-        password: formData.password
-      };
+    if (passwordRegex.test(formData.password))
+    {
+      if (formData.email && formData.password) {
+        const loginData : LoginData = {
+          email: formData.email,
+          password: formData.password
+        };
 
-      dispatch(loginAction(loginData));
+        dispatch(loginAction(loginData));
+      }
+    }
+    else {
+      setShowError(true);
     }
   };
 
-  if (location.pathname === AppRoute.Login && authStatus === AuthorizationStatus.Auth) {
+  if (location.pathname === AppRoute.Login && isAuthorized) {
     return <Navigate to={AppRoute.Main} />;
   }
+
+  const randomCity = getRandomCity();
+  const onCityClick = () => dispatch(changeCity(randomCity));
 
   return (
     <main className="page__main page__main--login">
@@ -53,15 +69,22 @@ function LoginScreen() : JSX.Element {
               <input className="login__input form__input" onChange={fieldChangeHandle} value={formData.password} type="password" name="password" placeholder="Password" required />
             </div>
             <button className="login__submit form__submit button" type="submit">Sign in</button>
+            {
+              showError &&
+              <div style={{ color: 'red', marginTop: '15px' }}>
+                <strong>Неверный пароль!</strong> Пароль должен содержать как минимум одну букву и одну цифру.
+              </div>
+            }
           </form>
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
             <Link
               className="locations__item-link"
-              to={`/?tab=${currentCity.name}`}
+              to="/"
+              onClick={onCityClick}
             >
-              <span>{currentCity.name}</span>
+              <span>{randomCity.name}</span>
             </Link>
           </div>
         </section>

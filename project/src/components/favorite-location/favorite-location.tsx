@@ -25,7 +25,7 @@ function FavoriteLocation(props: FavoriteLocationProps) : JSX.Element {
         <div className="locations__item" onClick={() => onCityClick(props.city)}>
           <Link
             className="locations__item-link"
-            to={`/?tab=${props.city.name}`}
+            to="/"
           >
             <span>{props.city.name}</span>
           </Link>
