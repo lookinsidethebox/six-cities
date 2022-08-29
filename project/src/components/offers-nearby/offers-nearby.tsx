@@ -1,4 +1,4 @@
-import MainCard from '../main/main-card';
+import MainCard from '../main-card/main-card';
 import { PropertyType } from '../../types/Property';
 
 type OffersNearbyProps = {

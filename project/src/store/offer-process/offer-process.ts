@@ -1,15 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { PropertyType } from '../../types/Property';
-import { fetchOffersAction, fetchOfferByIdAction, fetchOffersNearbyAction } from '../api-actions';
-import { updateOfferById } from '../../utils';
+import {
+  fetchOffersAction,
+  fetchOfferByIdAction,
+  fetchOffersNearbyAction,
+  sendReviewAction
+} from '../api-actions';
+import { updateOfferById, removeReviewError } from '../../utils';
 
 type OfferProcess = {
   offers: PropertyType[],
   offersLoaded: boolean,
   currentOffer: PropertyType | null,
   currentOfferLoaded: boolean,
-  offersNearby: PropertyType[]
+  offersNearby: PropertyType[],
+  offersWithReviewErrors: number[]
 };
 
 const initialState: OfferProcess = {
@@ -17,7 +23,8 @@ const initialState: OfferProcess = {
   offersLoaded: false,
   currentOffer: null,
   currentOfferLoaded: false,
-  offersNearby: []
+  offersNearby: [],
+  offersWithReviewErrors: []
 };
 
 export const offerProcess = createSlice({
@@ -32,6 +39,11 @@ export const offerProcess = createSlice({
     },
     updateBookmarkInOffersNearby: (state, action) => {
       state.offersNearby = updateOfferById(state.offersNearby, action.payload);
+    },
+    removeReviewErrorByOfferId: (state) => {
+      if (state.currentOffer !== null) {
+        state.offersWithReviewErrors = removeReviewError(state.currentOffer.id, state.offersWithReviewErrors);
+      }
     }
   },
   extraReducers(builder) {
@@ -52,8 +64,18 @@ export const offerProcess = createSlice({
       })
       .addCase(fetchOffersNearbyAction.fulfilled, (state, action) => {
         state.offersNearby = action.payload;
+      })
+      .addCase(sendReviewAction.rejected, (state) => {
+        state.offersWithReviewErrors = state.currentOffer === null
+          ? state.offersWithReviewErrors
+          : [...state.offersWithReviewErrors, state.currentOffer.id];
       });
   }
 });
 
-export const { updateBookmarkInOffers, updateBookmarkInCurrentOffer, updateBookmarkInOffersNearby } = offerProcess.actions;
+export const {
+  updateBookmarkInOffers,
+  updateBookmarkInCurrentOffer,
+  updateBookmarkInOffersNearby,
+  removeReviewErrorByOfferId
+} = offerProcess.actions;

@@ -11,7 +11,7 @@ import {
 } from '../../store/api-actions';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
-import OffersNearby from '../offersNearby/offersNearby';
+import OffersNearby from '../offers-nearby/offers-nearby';
 import { getCurrentOffer, getCurrentOfferLoaded, getOffersNearby } from '../../store/offer-process/selectors';
 import { FavoriteStatus, PROPERTY_IMAGES_MAX_COUNT, AppRoute } from '../../const';
 import type { FavoriteData } from '../../types/Favorite';
@@ -64,7 +64,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
   }
   const offersForMap = [ ...offersNearby, currentOffer ];
 
-  const onBookmarkClick = () => {
+  const handleBookmarkClick = () => {
     if (isAuthorized) {
       dispatch(toggleIsFavoriteStateAction(favoriteData));
     } else {
@@ -101,7 +101,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
               <button
                 className="property__bookmark-button button"
                 type="button"
-                onClick={onBookmarkClick}
+                onClick={handleBookmarkClick}
               >
                 <svg style={ currentOffer.isFavorite ? { stroke: '#4481c3', fill: '#4481c3' } : {} } className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>

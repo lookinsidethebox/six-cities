@@ -1,4 +1,4 @@
-import FavoritePlace from './favorites-place';
+import FavoritePlace from '../favorite-place/favorite-place';
 import { City } from '../../types/City';
 import type { PropertyType } from '../../types/Property';
 import { Link } from 'react-router-dom';
@@ -12,13 +12,12 @@ type FavoriteLocationProps = {
 
 function FavoriteLocation(props: FavoriteLocationProps) : JSX.Element {
   const dispatch = useAppDispatch();
-
-  const onCityClick = () => dispatch(changeCity(props.city));
+  const handleCityClick = () => dispatch(changeCity(props.city));
 
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
-        <div className="locations__item" onClick={onCityClick}>
+        <div className="locations__item" onClick={handleCityClick}>
           <Link
             className="locations__item-link"
             to="/"

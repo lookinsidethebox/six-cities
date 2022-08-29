@@ -13,7 +13,7 @@ function Header() : JSX.Element {
   const dispatch = useAppDispatch();
   const favoriteOffersCount = useAppSelector(getFavoriteOffersCount);
 
-  const onLogoutClick = () => {
+  const handleLogoutClick = () => {
     dispatch(logoutAction());
   };
 
@@ -39,7 +39,7 @@ function Header() : JSX.Element {
                     <span className="header__favorite-count">{favoriteOffersCount}</span>
                   </li>
                   <li className="header__nav-item">
-                    <Link className="header__nav-link" to="/" onClick={onLogoutClick}>
+                    <Link className="header__nav-link" to="/" onClick={handleLogoutClick}>
                       <span className="header__signout">Sign out</span>
                     </Link>
                   </li>

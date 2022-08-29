@@ -9,3 +9,4 @@ export const getOffersLoaded = (state: State): boolean => state[NameSpace.Offer]
 export const getCurrentOffer = (state: State): PropertyType | null => state[NameSpace.Offer].currentOffer;
 export const getCurrentOfferLoaded = (state: State): boolean => state[NameSpace.Offer].currentOfferLoaded;
 export const getOffersNearby = (state: State): PropertyType[] => state[NameSpace.Offer].offersNearby;
+export const getCurrentOfferReviewErrors = (state: State): boolean => state[NameSpace.Offer].offersWithReviewErrors.some((review) => state[NameSpace.Offer].currentOffer?.id === review);

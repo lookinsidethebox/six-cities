@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import ReviewForm from './review-form';
+import ReviewForm from '../review-form/review-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchReviewsAction } from '../../store/api-actions';
 import { getReviews } from '../../store/data-process/selectors';

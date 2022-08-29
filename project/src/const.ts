@@ -1,5 +1,5 @@
 import { cities } from './mocks/cities';
-import { sortTypes } from './mocks/sortTypes';
+import { sortTypes } from './mocks/sort-types';
 
 export enum AppRoute {
   Main = '/',
@@ -24,11 +24,14 @@ export enum ApiRoute {
   Favorite = '/favorite'
 }
 
+export enum ReviewInfo {
+  MaxLength = 300,
+  MinLength = 50,
+  MaxCount = 10
+}
+
 export const DEFAULT_CITY = cities[0];
 export const DEFAULT_SORT_TYPE = sortTypes[0];
-export const REVIEW_MIN_LENGTH = 50;
-export const REVIEW_MAX_LENGTH = 300;
-export const REVIEWS_MAX_COUNT = 10;
 export const PROPERTY_IMAGES_MAX_COUNT = 6;
 
 export enum NameSpace {
