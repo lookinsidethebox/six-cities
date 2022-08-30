@@ -4,6 +4,7 @@ import { fetchReviewsAction, sendReviewAction } from '../api-actions';
 import type { City } from '../../types/City';
 import type { SortType } from '../../types/SortType';
 import type { ReviewItem } from '../../types/Property';
+import { processReviews } from '../../utils';
 
 type DataProcess = {
   city: City,
@@ -31,10 +32,10 @@ export const dataProcess = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
-        state.reviews = action.payload;
+        state.reviews = processReviews(action.payload);
       })
       .addCase(sendReviewAction.fulfilled, (state, action) => {
-        state.reviews = action.payload;
+        state.reviews = processReviews(action.payload);
       });
   }
 });

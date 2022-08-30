@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import ReviewForm from './review-form';
+import ReviewForm from '../review-form/review-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchReviewsAction } from '../../store/api-actions';
 import { getReviews } from '../../store/data-process/selectors';
@@ -20,6 +20,10 @@ function Reviews({offerId}: ReviewProps) : JSX.Element {
 
   const reviews = useAppSelector(getReviews);
   const isAuthorized = useIsAuthorized();
+
+  function formatDate(date: string) {
+    return new Date(date).toLocaleString('default', { month: 'long', year: 'numeric' });
+  }
 
   return(
     <section className="property__reviews reviews">
@@ -49,7 +53,7 @@ function Reviews({offerId}: ReviewProps) : JSX.Element {
                 <p className="reviews__text">
                   { review.comment }
                 </p>
-                <time className="reviews__time" dateTime={review.date}>{ new Date(review.date).toLocaleString() }</time>
+                <time className="reviews__time" dateTime={review.date}>{formatDate(review.date)}</time>
               </div>
             </li>
           ))

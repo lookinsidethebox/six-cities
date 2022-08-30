@@ -1,7 +1,7 @@
 import React from 'react';
 import type { City } from '../../types/City';
 
-import CityItem from './city';
+import CityItem from '../city/city';
 
 type CitiesProps = {
   cities: City[];

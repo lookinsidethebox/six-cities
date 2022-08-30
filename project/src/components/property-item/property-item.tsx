@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Reviews from '../reviews/reviews';
 import CityMap from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -10,12 +11,13 @@ import {
 } from '../../store/api-actions';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
-import OffersNearby from '../offersNearby/offersNearby';
+import OffersNearby from '../offers-nearby/offers-nearby';
 import { getCurrentOffer, getCurrentOfferLoaded, getOffersNearby } from '../../store/offer-process/selectors';
-import { FavoriteStatus } from '../../const';
+import { FavoriteStatus, PROPERTY_IMAGES_MAX_COUNT, AppRoute } from '../../const';
 import type { FavoriteData } from '../../types/Favorite';
 import { getOfferInBookmark } from '../../store/favorite-process/selectors';
 import { updateBookmarkInCurrentOffer } from '../../store/offer-process/offer-process';
+import { useIsAuthorized } from '../../hooks';
 
 const STAR_WIDTH = 30;
 
@@ -38,6 +40,8 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
   const isCurrentOfferLoaded = useAppSelector(getCurrentOfferLoaded);
   const offersNearby = useAppSelector(getOffersNearby);
   const offerInBookmark = useAppSelector(getOfferInBookmark);
+  const isAuthorized = useIsAuthorized();
+  const navigate = useNavigate();
 
   useEffect((): void => {
     if (offerInBookmark?.id.toString() === id) {
@@ -58,9 +62,15 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
   if (currentOffer === null) {
     return(<NotFoundScreen />);
   }
-
   const offersForMap = [ ...offersNearby, currentOffer ];
-  const onBookmarkClick = () => dispatch(toggleIsFavoriteStateAction(favoriteData));
+
+  const handleBookmarkClick = () => {
+    if (isAuthorized) {
+      dispatch(toggleIsFavoriteStateAction(favoriteData));
+    } else {
+      navigate(AppRoute.Login);
+    }
+  };
 
   return (
     <React.Fragment>
@@ -68,7 +78,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
         <div className="property__gallery-container container">
           <div className="property__gallery">
             {
-              currentOffer.images.map((url) => (
+              currentOffer.images.slice(0, PROPERTY_IMAGES_MAX_COUNT).map((url) => (
                 <div className="property__image-wrapper" key={url}>
                   <img className="property__image" src={url} alt="Studio" />
                 </div>
@@ -91,7 +101,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
               <button
                 className="property__bookmark-button button"
                 type="button"
-                onClick={onBookmarkClick}
+                onClick={handleBookmarkClick}
               >
                 <svg style={ currentOffer.isFavorite ? { stroke: '#4481c3', fill: '#4481c3' } : {} } className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>

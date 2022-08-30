@@ -1,8 +1,8 @@
-import type { PropertyType, GroupedProperty } from '../types/Property';
-import { sortTypes } from '../mocks/sortTypes';
+import type { PropertyType, GroupedProperty, ReviewItem } from '../types/Property';
+import { sortTypes } from '../mocks/sort-types';
 import { cities } from '../mocks/cities';
-import { DefaultCity } from '../const';
-import { sortByPriceToHigh, sortByPriceToLow, sortByTopRated } from './sortUtils';
+import { DefaultCity, ReviewInfo, CITY_COUNT } from '../const';
+import { sortByPriceToHigh, sortByPriceToLow, sortByTopRated, sortReviews } from './sortUtils';
 
 export const getSortTypeById = (sortTypeId: number) => sortTypes.filter((sortType) => sortType.id === sortTypeId)[0];
 
@@ -58,4 +58,17 @@ export function updateOfferById(offers: PropertyType[], newOffer: PropertyType |
 
   offers[index] = newOffer;
   return offers;
+}
+
+export function processReviews(reviews: ReviewItem[]) {
+  return reviews.sort(sortReviews).slice(0, ReviewInfo.MaxCount);
+}
+
+export function getRandomCity() {
+  const index = Math.round(Math.random() * CITY_COUNT);
+  return cities[index];
+}
+
+export function removeReviewError(offerId: number, reviews: number[]) {
+  return reviews.filter((review) => review !== offerId);
 }

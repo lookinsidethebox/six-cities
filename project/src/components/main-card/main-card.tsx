@@ -41,7 +41,7 @@ function MainCard(props: MainCardProps): JSX.Element {
   const isAuthorized = useIsAuthorized();
   const navigate = useNavigate();
 
-  const onBookmarkButtonClick = () => {
+  const handleBookmarkButtonClick = () => {
     if (isAuthorized) {
       dispatch(toggleIsFavoriteStateAction(favoriteData));
     } else {
@@ -58,9 +58,7 @@ function MainCard(props: MainCardProps): JSX.Element {
         </div>
       }
       <div className={`${props.isNearby ? 'near-places__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}>
-        <Link to={`/offer/${props.card.id}`}>
-          <img className="place-card__image" src={props.card.previewImage} width="260" height="200" alt="Offer" />
-        </Link>
+        <img className="place-card__image" src={props.card.previewImage} width="260" height="200" alt="Offer" />
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -71,7 +69,7 @@ function MainCard(props: MainCardProps): JSX.Element {
           <button
             className={`place-card__bookmark-button ${props.card.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
             type="button"
-            onClick={onBookmarkButtonClick}
+            onClick={handleBookmarkButtonClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

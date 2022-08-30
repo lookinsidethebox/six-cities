@@ -1,8 +1,8 @@
 import React from 'react';
-import FavoriteLocation from '../../components/favorite/favorite-location';
+import FavoriteLocation from '../../components/favorite-location/favorite-location';
 import { groupByCity, getCityByName } from '../../utils';
 import Header from '../../components/header/header';
-import FavoriteEmpty from '../../components/favorite/favorite-empty';
+import FavoriteEmpty from '../../components/favorite-empty/favorite-empty';
 import { getFavoriteOffers } from '../../store/favorite-process/selectors';
 import { useAppSelector } from '../../hooks';
 

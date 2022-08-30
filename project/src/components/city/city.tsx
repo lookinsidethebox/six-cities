@@ -10,13 +10,13 @@ type CityProps = {
 
 function CityItem(props: CityProps) : JSX.Element {
   const dispatch = useAppDispatch();
-  const onCityClick = () => dispatch(changeCity(props.city));
+  const handleCityClick = () => dispatch(changeCity(props.city));
 
   return (
-    <li className="locations__item" key={props.city.name} onClick={onCityClick}>
+    <li className="locations__item" key={props.city.name} onClick={handleCityClick}>
       <Link
         className={`${props.currentCity.name === props.city.name ? 'tabs__item--active' : ''} locations__item-link tabs__item`}
-        to={`?tab=${props.city.name}`}
+        to="/"
       >
         <span>{props.city.name}</span>
       </Link>
