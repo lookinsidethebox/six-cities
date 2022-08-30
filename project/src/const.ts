@@ -30,9 +30,10 @@ export enum ReviewInfo {
   MaxCount = 10
 }
 
-export const DEFAULT_CITY = cities[0];
-export const DEFAULT_SORT_TYPE = sortTypes[0];
+export const DefaultCity = cities[0];
+export const DefaultSortType = sortTypes[0];
 export const PROPERTY_IMAGES_MAX_COUNT = 6;
+export const CITY_COUNT = 6;
 
 export enum NameSpace {
   User = 'USER',

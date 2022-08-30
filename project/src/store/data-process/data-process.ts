@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace, DEFAULT_CITY, DEFAULT_SORT_TYPE } from '../../const';
+import { NameSpace, DefaultCity, DefaultSortType } from '../../const';
 import { fetchReviewsAction, sendReviewAction } from '../api-actions';
 import type { City } from '../../types/City';
 import type { SortType } from '../../types/SortType';
@@ -13,8 +13,8 @@ type DataProcess = {
 };
 
 const initialState: DataProcess = {
-  city: DEFAULT_CITY,
-  sortType: DEFAULT_SORT_TYPE,
+  city: DefaultCity,
+  sortType: DefaultSortType,
   reviews: []
 };
 

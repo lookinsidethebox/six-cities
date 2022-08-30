@@ -20,13 +20,13 @@ function ReviewForm({offerId} : ReviewFormProps) : JSX.Element {
 
   const hasReviewError = useAppSelector(getCurrentOfferReviewErrors);
 
-  const handleRatingChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = e.target;
+  const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
   };
 
-  const handleReviewChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const {name, value} = e.target;
+  const handleReviewChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+    const {name, value} = evt.target;
     let text = value;
 
     if (text.length > ReviewInfo.MaxLength) {
@@ -38,8 +38,8 @@ function ReviewForm({offerId} : ReviewFormProps) : JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
     dispatch(removeReviewErrorByOfferId);
 
     if (formData.rating && formData.review) {

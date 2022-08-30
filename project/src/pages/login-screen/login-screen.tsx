@@ -20,15 +20,15 @@ function LoginScreen() : JSX.Element {
 
   const [showError, setShowError] = React.useState(false);
 
-  const handleFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const handleFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = evt.target;
     setFormData({...formData, [name]: value});
   };
 
   const passwordRegex = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/; //at least one digit and one letter
 
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
     setShowError(false);
 
     if (passwordRegex.test(formData.password))

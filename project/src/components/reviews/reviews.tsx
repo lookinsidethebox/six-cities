@@ -21,6 +21,10 @@ function Reviews({offerId}: ReviewProps) : JSX.Element {
   const reviews = useAppSelector(getReviews);
   const isAuthorized = useIsAuthorized();
 
+  function formatDate(date: string) {
+    return new Date(date).toLocaleString('default', { month: 'long', year: 'numeric' });
+  }
+
   return(
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
@@ -49,7 +53,7 @@ function Reviews({offerId}: ReviewProps) : JSX.Element {
                 <p className="reviews__text">
                   { review.comment }
                 </p>
-                <time className="reviews__time" dateTime={review.date}>{ new Date(review.date).toLocaleString('default', { month: 'long', year: 'numeric' }) }</time>
+                <time className="reviews__time" dateTime={review.date}>{formatDate(review.date)}</time>
               </div>
             </li>
           ))
