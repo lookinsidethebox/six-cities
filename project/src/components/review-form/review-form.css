@@ -1,0 +1,10 @@
+.review-error {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+  background-color: pink;
+  border: 1px solid red;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}

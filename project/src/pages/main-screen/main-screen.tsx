@@ -2,7 +2,7 @@ import React from 'react';
 import Cities from '../../components/cities/cities';
 import MainCard from '../../components/main-card/main-card';
 import MainEmpty from '../../components/main-empty/main-empty';
-import CityMap from '../../components/map/map';
+import CityMap from '../../components/city-map/city-map';
 import Sorting from '../../components/sorting/sorting';
 import Header from '../../components/header/header';
 import { cities } from '../../mocks/cities';
@@ -13,6 +13,7 @@ import { store } from '../../store';
 import { fetchOffersAction } from '../../store/api-actions';
 import { getOffersByCityAndSort, getOffersLoaded } from '../../store/offer-process/selectors';
 import { getCity } from '../../store/data-process/selectors';
+import './main-screen.css';
 
 store.dispatch(fetchOffersAction());
 
@@ -52,7 +53,7 @@ function MainScreen(): JSX.Element {
                 </div>
               </section>
               <div className="cities__right-section">
-                <section style={{ width: '100%' }} >
+                <section className="map-container">
                   <CityMap
                     centerLocation={currentCity.location}
                     offers={offersByCity}

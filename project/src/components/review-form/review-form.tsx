@@ -5,6 +5,7 @@ import { sendReviewAction } from '../../store/api-actions';
 import { removeReviewErrorByOfferId } from '../../store/offer-process/offer-process';
 import { ReviewInfo } from '../../const';
 import { getCurrentOfferReviewErrors } from '../../store/offer-process/selectors';
+import './review-form.css';
 
 type ReviewFormProps = {
   offerId: string;
@@ -98,17 +99,7 @@ function ReviewForm({offerId} : ReviewFormProps) : JSX.Element {
       </div>
       {
         hasReviewError &&
-        <div style={{
-          color: 'red',
-          fontSize: '14px',
-          textAlign: 'center',
-          backgroundColor: 'pink',
-          border: '1px solid red',
-          padding: '5px 10px',
-          marginBottom: '5px',
-          borderRadius: '5px'
-        }}
-        >
+        <div className="review-error">
           There was an error while sending the previous review, try to send it again
         </div>
       }
