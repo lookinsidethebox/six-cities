@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import MainScreen from '../../pages/main-screen/main-screen';
@@ -10,12 +11,14 @@ import { useIsAuthorized, useAppDispatch } from '../../hooks';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';
 
 function App(): JSX.Element {
-  const isAuthorized = useIsAuthorized();
   const dispatch = useAppDispatch();
+  const isAuthorized = useIsAuthorized();
 
-  if (isAuthorized) {
-    dispatch(fetchFavoriteOffersAction());
-  }
+  useEffect(() => {
+    if (isAuthorized) {
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, []);
 
   return (
     <BrowserRouter>

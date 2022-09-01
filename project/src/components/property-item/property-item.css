@@ -1,0 +1,9 @@
+.map-container {
+  width: 50%;
+  margin: 0 auto 30px auto;
+}
+
+.property__bookmark-icon--active {
+  stroke: #4481c3;
+  fill: #4481c3;
+}

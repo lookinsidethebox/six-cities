@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { toggleIsFavoriteStateAction, fetchFavoriteOffersAction } from '../../store/api-actions';
 import { getOfferInBookmark } from '../../store/favorite-process/selectors';
 
+const STAR_WIDTH = 15;
+
 type FavoritePlaceProps = {
   place: PropertyType
 };
@@ -61,7 +63,7 @@ function FavoritePlace({place}: FavoritePlaceProps) : JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '100%' }}></span>
+            <span style={{ width: Math.round(place.rating) * STAR_WIDTH }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

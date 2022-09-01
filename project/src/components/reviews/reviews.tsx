@@ -46,7 +46,7 @@ function Reviews({offerId}: ReviewProps) : JSX.Element {
               <div className="reviews__info">
                 <div className="reviews__rating rating">
                   <div className="reviews__stars rating__stars">
-                    <span style={{ width: review.rating * STAR_WIDTH }}></span>
+                    <span style={{ width: Math.round(review.rating) * STAR_WIDTH }}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>

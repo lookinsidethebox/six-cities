@@ -7,6 +7,9 @@ import { AppRoute } from '../../const';
 import { changeCity } from '../../store/data-process/data-process';
 import { useIsAuthorized } from '../../hooks';
 import { getRandomCity } from '../../utils';
+import './login-screen.css';
+
+const randomCity = getRandomCity();
 
 function LoginScreen() : JSX.Element {
   const dispatch = useAppDispatch();
@@ -51,7 +54,6 @@ function LoginScreen() : JSX.Element {
     return <Navigate to={AppRoute.Main} />;
   }
 
-  const randomCity = getRandomCity();
   const handleCityClick = () => dispatch(changeCity(randomCity));
 
   return (
@@ -71,7 +73,7 @@ function LoginScreen() : JSX.Element {
             <button className="login__submit form__submit button" type="submit">Sign in</button>
             {
               showError &&
-              <div style={{ color: 'red', marginTop: '15px' }}>
+              <div className="wrong-password">
                 <strong>Неверный пароль!</strong> Пароль должен содержать как минимум одну букву и одну цифру.
               </div>
             }

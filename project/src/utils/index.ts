@@ -1,10 +1,7 @@
 import type { PropertyType, GroupedProperty, ReviewItem } from '../types/Property';
-import { sortTypes } from '../mocks/sort-types';
 import { cities } from '../mocks/cities';
 import { DefaultCity, ReviewInfo, CITY_COUNT } from '../const';
 import { sortByPriceToHigh, sortByPriceToLow, sortByTopRated, sortReviews } from './sortUtils';
-
-export const getSortTypeById = (sortTypeId: number) => sortTypes.filter((sortType) => sortType.id === sortTypeId)[0];
 
 export function getOffersByCity(offers: PropertyType[], cityName: string, sortTypeId: number) {
   const result = offers.filter((offer) => offer.city.name === cityName);

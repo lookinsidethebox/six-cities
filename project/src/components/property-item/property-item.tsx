@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Reviews from '../reviews/reviews';
-import CityMap from '../../components/map/map';
+import CityMap from '../city-map/city-map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   fetchOfferByIdAction,
@@ -18,6 +18,7 @@ import type { FavoriteData } from '../../types/Favorite';
 import { getOfferInBookmark } from '../../store/favorite-process/selectors';
 import { updateBookmarkInCurrentOffer } from '../../store/offer-process/offer-process';
 import { useIsAuthorized } from '../../hooks';
+import './property-item.css';
 
 const STAR_WIDTH = 30;
 
@@ -103,7 +104,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
                 type="button"
                 onClick={handleBookmarkClick}
               >
-                <svg style={ currentOffer.isFavorite ? { stroke: '#4481c3', fill: '#4481c3' } : {} } className="property__bookmark-icon" width="31" height="33">
+                <svg className={`property__bookmark-icon ${currentOffer.isFavorite ? 'property__bookmark-icon--active' : ''}`} width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
                 <span className="visually-hidden">{currentOffer.isFavorite ? 'In' : 'To'} bookmarks</span>
@@ -111,7 +112,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{ width: currentOffer.rating * STAR_WIDTH }}></span>
+                <span style={{ width: Math.round(currentOffer.rating) * STAR_WIDTH }}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="property__rating-value rating__value">{currentOffer.rating}</span>
@@ -163,7 +164,7 @@ function PropertyItem({id}: PropertyItemProps) : JSX.Element {
             <Reviews offerId={id} />
           </div>
         </div>
-        <section style={{ width: '50%', margin: '0 auto 30px auto' }} >
+        <section className="map-container">
           <CityMap
             centerLocation={currentOffer.location}
             offers={offersForMap}
